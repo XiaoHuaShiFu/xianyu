@@ -139,7 +139,7 @@ public class UserController {
     @ResponseStatus(value = HttpStatus.OK)
     @TokenAuth(tokenType = TokenType.USER)
     @ErrorHandler
-    public Object put(TokenAO tokenAO, @Validated(Group.class) UserDO userDO) {
+    public Object put(TokenAO tokenAO, @Validated(Group.class) @RequestBody UserDO userDO) {
         if (!userDO.getId().equals(tokenAO.getId())) {
             return Result.fail(ErrorCode.FORBIDDEN_SUB_USER);
         }

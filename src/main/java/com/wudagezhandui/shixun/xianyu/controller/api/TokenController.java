@@ -72,7 +72,7 @@ public class TokenController {
             @Password String password,
             @NotNull(message = "INVALID_PARAMETER_IS_NULL: The tokenType must be not null.") TokenType tokenType) {
         Result<TokenAO> result = tokenService.createAndSaveToken(tokenType, username, password);
-
+        System.out.println(result);
         return result.isSuccess() ? mapper.map(result.getData(), TokenVO.class) : result;
     }
 

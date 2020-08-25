@@ -61,7 +61,7 @@ public class UserController {
      * INVALID_PARAMETER_SIZE
      * INVALID_PARAMETER_VALUE_BELOW
      */
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     @ErrorHandler
     public Object post(@Validated(GroupPost.class) @RequestBody UserDO userDO) {

@@ -6,7 +6,6 @@ import com.wudagezhandui.shixun.xianyu.pojo.query.UserQuery;
 import com.wudagezhandui.shixun.xianyu.result.Result;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Map;
 
 /**
  * 描述: 用户Service

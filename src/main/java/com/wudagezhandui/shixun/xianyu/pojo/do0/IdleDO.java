@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class IdleDO {
 
-    enum Status{
+    public enum Status{
         NORMAL,
         SELLED,
         OFF

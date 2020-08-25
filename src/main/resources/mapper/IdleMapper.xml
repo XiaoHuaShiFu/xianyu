@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wudagezhandui.shixun.xianyu.dao.UserMapper">
+
+    <sql id="Base_Column_List">
+        id, user_id, price, title, detail, image, status, create_time, update_time
+    </sql>
+
+    <insert id="saveIdle" parameterType="com.wudagezhandui.shixun.xianyu.pojo.do0.IdleDO"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into idle
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="user_id != null">
+                user_id,
+            </if>
+            <if test="price!= null">
+                price,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="detail != null">
+                detail,
+            </if>
+            <if test="image != null">
+                image,
+            </if>
+            <if test="status != null">
+                status
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="user_id != null">
+                #{user_id},
+            </if>
+            <if test="price!= null">
+                #{price},
+            </if>
+            <if test="title != null">
+                #{title},
+            </if>
+            <if test="detail != null">
+                #{detail},
+            </if>
+            <if test="image != null">
+                #{image},
+            </if>
+            <if test="status != null">
+                #{status}
+            </if>
+        </trim>
+    </insert>
+
+    <select id="getIdle" parameterType="integer" resultType="com.wudagezhandui.shixun.xianyu.pojo.do0.IdleDO">
+        select
+        <include refid="Base_Column_List"/>
+        from idle
+        where id = #{id}
+    </select>
+
+    <select id="getIdleByName" parameterType="string" resultType="com.wudagezhandui.shixun.xianyu.pojo.do0.IdleDO">
+        select
+        <include refid="Base_Column_List"/>
+        from idle
+        where title = #{name}
+    </select>
+
+    <select id="listIdles" parameterType="com.wudagezhandui.shixun.xianyu.pojo.query.IdleQuery"
+            resultType="com.wudagezhandui.shixun.xianyu.pojo.do0.IdleDO">
+        select
+        <include refid="Base_Column_List"/>
+        from idle
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="idList != null">
+                and id in (
+                <foreach collection="idList"  item="item" index="index" separator=",">
+                    #{item}
+                </foreach>
+                )
+            </if>
+            <if test="name != null">
+                and title like "%"#{name}"%"
+            </if>
+        </where>
+        order by update_time desc
+    </select>
+
+    <update id="updateIdle" parameterType="com.wudagezhandui.shixun.xianyu.pojo.do0.IdleDO">
+        update idle
+        <set>
+            <if test="user_id != null">
+                user_id = #{user_id},
+            </if>
+            <if test="price!= null">
+                price = #{price},
+            </if>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="detail != null">
+                detail = #{detail},
+            </if>
+            <if test="image != null">
+                image = #{image},
+            </if>
+            <if test="status != null">
+                status = #{status}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="countByName" parameterType="string" resultType="int">
+        select count(*)
+        from idle
+        where title = #{name}
+    </select>
+</mapper>

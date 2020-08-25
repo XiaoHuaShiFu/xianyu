@@ -40,6 +40,10 @@ public class IdleDO {
 
     private Date updateTime;
 
+    public IdleDO(){
+
+    }
+
     public IdleDO(Integer id,Integer userId, BigDecimal price, String title, String detail, String image,
                   Status status, Date createTime, Date updateTime) {
         this.id = id;

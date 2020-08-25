@@ -41,15 +41,15 @@ public interface IdleMapper {
     /**
      * 更新物品信息
      * @param idleDO0 要更新的物品信息
-     * @param user 更新的用户
+     *
      * @return 成功更新的条数
      */
-    int updateIdle(IdleDO idleDO0, UserDO user);
+    int updateIdle(IdleDO idleDO0);
 
     /**
      * 获取物品数量通过物品名
      * @param name 物品名
      * @return 物品数量
      */
-    int countByUsername(String name);
+    int countByName(String name);
 }

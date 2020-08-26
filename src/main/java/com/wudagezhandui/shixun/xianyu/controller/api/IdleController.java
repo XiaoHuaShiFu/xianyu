@@ -66,6 +66,7 @@ public class IdleController {
     @ResponseStatus(value = HttpStatus.CREATED)
     @ErrorHandler
     public Object post(@Validated(GroupPost.class) @RequestBody IdleDO Idle) {
+        //System.out.println(Idle.getUser_id());
         Result<IdleDO> result = idleService.saveIdle(Idle);
         return !result.isSuccess() ? result : mapper.map(result.getData(), IdleVO.class);
     }
@@ -84,7 +85,7 @@ public class IdleController {
      * @bindErrors
      * INVALID_PARAMETER_VALUE_BELOW: The name of id below, min: 0.
      */
-    @RequestMapping(value="/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/ID/{id}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @TokenAuth(tokenType = TokenType.USER)
     @ErrorHandler
@@ -164,7 +165,7 @@ public class IdleController {
     @TokenAuth(tokenType = TokenType.USER)
     @ErrorHandler
     public Object put(TokenAO tokenAO, @Validated(Group.class) @RequestBody IdleDO idle) {
-        if (!idle.getUserId().equals(tokenAO.getId())) {
+        if (!idle.getUser_id().equals(tokenAO.getId())) {
             return Result.fail(ErrorCode.FORBIDDEN_SUB_USER);
         }
         Result<IdleDO> result = idleService.updateIdle(idle);

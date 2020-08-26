@@ -23,8 +23,8 @@ public class IdleDO {
     @Id(groups = {Group.class})
     private Integer id;
 
-    @Id(groups = {Group.class})
-    private Integer userId;
+    //@Id(groups = {Group.class})
+    private Integer user_id;
 
     private BigDecimal price;
 
@@ -47,7 +47,7 @@ public class IdleDO {
     public IdleDO(Integer id,Integer userId, BigDecimal price, String title, String detail, String image,
                   Status status, Date createTime, Date updateTime) {
         this.id = id;
-        this.userId = userId;
+        this.user_id = userId;
         this.price = price;
         this.title = title;
         this.detail = detail;
@@ -66,11 +66,11 @@ public class IdleDO {
     }
 
     public Integer getUserId() {
-        return userId;
+        return user_id;
     }
 
     public void setUserId(Integer userId) {
-        this.userId = userId;
+        this.user_id = userId;
     }
 
     public BigDecimal getPrice() {
@@ -129,11 +129,20 @@ public class IdleDO {
         this.updateTime = updateTime;
     }
 
+    public Integer getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
+    }
+
+
     @Override
     public String toString() {
         return "IdleDO{" +
                 "id=" + id +
-                ", userid='" + userId + '\'' +
+                ", userid='" + user_id + '\'' +
                 ", price='" + price + '\'' +
                 ", title='" + title + '\'' +
                 ", detail='" + detail + '\'' +

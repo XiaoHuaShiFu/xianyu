@@ -12,21 +12,22 @@ public class IdleQuery {
 
     private List<Integer> idList;
 
+
     /**
      * 模糊搜素
      */
-    private String idlename;
+    private String name;
 
     public IdleQuery(){
 
     }
 
-    public IdleQuery(Integer pageNum, Integer pageSize, Integer id, List<Integer> idList, String idlename){
+    public IdleQuery(Integer pageNum, Integer pageSize, Integer id, List<Integer> idList, String name){
         this.pageNum = pageNum;
         this.pageSize = pageSize;
         this.id = id;
         this.idList = idList;
-        this.idlename = idlename;
+        this.name = name;
     }
 
     public Integer getPageNum() {
@@ -61,13 +62,14 @@ public class IdleQuery {
         this.idList = idList;
     }
 
-    public String getIdlename() {
-        return idlename;
+    public String getName() {
+        return name;
     }
 
-    public void setIdlename(String idlename) {
-        this.idlename = idlename;
+    public void setName(String name) {
+        this.name = name;
     }
+
 
     @Override
     public String toString() {
@@ -76,7 +78,7 @@ public class IdleQuery {
                 ", pageSize=" + pageSize +
                 ", id=" + id +
                 ", idList=" + idList +
-                ", idlename='" + idlename +
+                ", idlename='" + name +
                 '}';
     }
 }

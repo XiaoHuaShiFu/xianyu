@@ -56,13 +56,13 @@ public class IdleServiceImpl implements IdleService {
     @Override
     @Transactional
     public Result<IdleDO> saveIdle(IdleDO idle) {
-        //物品在表中
+        /*//物品在表中
         IdleDO temp = idleMapper.getIdle(idle.getId());
-        if(temp==null){
+        if(temp!=null){
             return Result.fail(ErrorCode.OPERATION_CONFLICT,
                     "Request was denied due to conflict, the idleId already exists.");
-        }
-
+        }*/
+        //System.out.println(idle.getUser_id());
         int count = idleMapper.saveIdle(idle);
         //保存失败
         if(count<1){
@@ -128,7 +128,7 @@ public class IdleServiceImpl implements IdleService {
         }
 
         idleDO.setId(idle.getId());
-        idleDO.setUserId(idle.getUserId());
+        idleDO.setUserId(idle.getUser_id());
 
         int count = idleMapper.updateIdle(idleDO);
         if(count<1){

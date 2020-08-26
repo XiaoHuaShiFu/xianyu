@@ -116,6 +116,6 @@
     <select id="countByName" parameterType="string" resultType="int">
         select count(*)
         from idle
-        where title = #{name}
+        where title like "%"#{name}"%"
     </select>
 </mapper>

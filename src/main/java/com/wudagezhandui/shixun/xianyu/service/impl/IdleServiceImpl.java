@@ -63,6 +63,7 @@ public class IdleServiceImpl implements IdleService {
                     "Request was denied due to conflict, the idleId already exists.");
         }*/
         //System.out.println(idle.getUser_id());
+        idle.setStatus(IdleDO.Status.NORMAL);
         int count = idleMapper.saveIdle(idle);
         //保存失败
         if(count<1){

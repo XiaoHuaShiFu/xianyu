@@ -74,6 +74,9 @@
             <if test="id != null">
                 and id = #{id}
             </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
             <if test="idList != null">
                 and id in (
                 <foreach collection="idList"  item="item" index="index" separator=",">
@@ -83,6 +86,15 @@
             </if>
             <if test="name != null">
                 and title like "%"#{name}"%"
+            </if>
+            <if test="detail != null">
+                and detail like "%"#{detail}"%"
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="maxPrice != null">
+                and price &lt;= #{maxPrice}
             </if>
         </where>
         order by update_time desc

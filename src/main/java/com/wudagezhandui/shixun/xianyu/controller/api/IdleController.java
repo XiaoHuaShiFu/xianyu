@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
  */
 
 @RestController
-@RequestMapping("v2/idle")
+@RequestMapping("v1/idle")
 @Validated
 public class IdleController {
 
@@ -87,7 +87,6 @@ public class IdleController {
      */
     @RequestMapping(value="/ID/{id}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
-    @TokenAuth(tokenType = TokenType.USER)
     @ErrorHandler
     public Object get(@PathVariable @Id Integer id) {
         Result<IdleDO> result = idleService.getIdle(id);
@@ -110,7 +109,6 @@ public class IdleController {
      */
     @RequestMapping(value="/Name/{name}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
-    @TokenAuth(tokenType = TokenType.USER)
     @ErrorHandler
     public Object get(@PathVariable  String name) {
         Result<IdleDO> result = idleService.getIdleByName(name);
@@ -127,7 +125,6 @@ public class IdleController {
      */
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
-    @TokenAuth(tokenType = TokenType.USER)
     @ErrorHandler
     public Object get(IdleQuery query) {
         Result<PageInfo<IdleDO>> result = idleService.listIdles(query);

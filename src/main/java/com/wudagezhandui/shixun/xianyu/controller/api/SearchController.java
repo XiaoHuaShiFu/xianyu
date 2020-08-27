@@ -4,12 +4,12 @@ import com.github.pagehelper.PageInfo;
 import com.wudagezhandui.shixun.xianyu.aspect.annotation.ErrorHandler;
 import com.wudagezhandui.shixun.xianyu.pojo.do0.IdleDO;
 import com.wudagezhandui.shixun.xianyu.pojo.do0.UserDO;
-import com.wudagezhandui.shixun.xianyu.pojo.query.IdleQuery;
+import com.wudagezhandui.shixun.xianyu.pojo.query.SearchQuery;
 import com.wudagezhandui.shixun.xianyu.pojo.query.UserQuery;
 import com.wudagezhandui.shixun.xianyu.pojo.vo.IdleVO;
 import com.wudagezhandui.shixun.xianyu.pojo.vo.UserVO;
 import com.wudagezhandui.shixun.xianyu.result.Result;
-import com.wudagezhandui.shixun.xianyu.service.IdleService;
+import com.wudagezhandui.shixun.xianyu.service.SearchService;
 import com.wudagezhandui.shixun.xianyu.service.UserService;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,14 +36,14 @@ public class SearchController {
 
     private final Mapper mapper;
 
-    private final IdleService idleService;
+    private final SearchService searchService;
 
     private final UserService userService;
 
     @Autowired
-    public SearchController(Mapper mapper, IdleService idleService, UserService userService) {
+    public SearchController(Mapper mapper, SearchService searchService, UserService userService) {
         this.mapper = mapper;
-        this.idleService = idleService;
+        this.searchService = searchService;
         this.userService = userService;
     }
 
@@ -58,8 +58,8 @@ public class SearchController {
     @GetMapping("/idles")
     @ResponseStatus(value = HttpStatus.OK)
     @ErrorHandler
-    public Object getIdles(IdleQuery query) {
-        Result<PageInfo<IdleDO>> result = idleService.listIdles(query);
+    public Object getIdles(SearchQuery query) {
+        Result<PageInfo<IdleDO>> result = searchService.searchIdles(query);
         if (!result.isSuccess()) {
             return result;
         }
@@ -82,8 +82,12 @@ public class SearchController {
     @GetMapping("/users")
     @ResponseStatus(value = HttpStatus.OK)
     @ErrorHandler
-    public Object getUsers(UserQuery query) {
-        Result<PageInfo<UserDO>> result = userService.listUsers(query);
+    public Object getUsers(SearchQuery query) {
+        UserQuery userQuery = new UserQuery();
+        userQuery.setPageNum(query.getPageNum());
+        userQuery.setPageSize(query.getPageSize());
+        userQuery.setNickName(query.getKeyword());
+        Result<PageInfo<UserDO>> result = userService.listUsers(userQuery);
         if (!result.isSuccess()) {
             return result;
         }

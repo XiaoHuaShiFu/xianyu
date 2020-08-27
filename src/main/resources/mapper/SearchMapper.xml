@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wudagezhandui.shixun.xianyu.dao.SearchMapper">
+
+    <sql id="Idle_Base_Column_List">
+        id, user_id, price, title, detail, image, status, create_time, update_time
+    </sql>
+
+    <select id="searchIdles" parameterType="com.wudagezhandui.shixun.xianyu.pojo.query.SearchQuery"
+            resultType="com.wudagezhandui.shixun.xianyu.pojo.do0.IdleDO">
+        select
+        <include refid="Idle_Base_Column_List"/>
+        from idle
+        <where>
+            <if test="keyword != null">
+                or title like "%"#{keyword}"%" or detail like "%"#{keyword}"%"
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="maxPrice != null">
+                and price &lt;= #{maxPrice}
+            </if>
+        </where>
+        order by update_time desc
+    </select>
+
+</mapper>

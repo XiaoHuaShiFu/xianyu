@@ -3,6 +3,7 @@ package com.wudagezhandui.shixun.xianyu.pojo.do0;
 import com.wudagezhandui.shixun.xianyu.pojo.group.Group;
 import com.wudagezhandui.shixun.xianyu.validator.annotation.Id;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -35,6 +36,8 @@ public class IdleDO {
     private String detail;
 
     private String image;
+
+   // private MultipartFile images;
 
     private Status status;
 

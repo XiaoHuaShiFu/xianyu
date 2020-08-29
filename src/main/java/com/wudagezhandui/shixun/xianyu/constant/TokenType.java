@@ -13,4 +13,14 @@ public enum TokenType {
      * 普通用户的Token
      */
     USER,
+
+    /**
+     * 管理员的Token
+     */
+    ADMIN,
+
+    /**
+     * 匿名Token
+     */
+    ANON
 }

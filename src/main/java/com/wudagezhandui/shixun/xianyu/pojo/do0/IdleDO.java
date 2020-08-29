@@ -28,6 +28,8 @@ public class IdleDO {
 
     private BigDecimal price;
 
+    private BigDecimal postage;
+
     private String title;
 
     private String detail;
@@ -44,11 +46,12 @@ public class IdleDO {
 
     }
 
-    public IdleDO(Integer id,Integer userId, BigDecimal price, String title, String detail, String image,
+    public IdleDO(Integer id,Integer userId, BigDecimal price, BigDecimal postage, String title, String detail, String image,
                   Status status, Date createTime, Date updateTime) {
         this.id = id;
         this.user_id = userId;
         this.price = price;
+        this.postage = postage;
         this.title = title;
         this.detail = detail;
         this.image = image;
@@ -79,6 +82,14 @@ public class IdleDO {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public BigDecimal getPostage() {
+        return postage;
+    }
+
+    public void setPostage(BigDecimal postage) {
+        this.postage = postage;
     }
 
     public String getTitle() {
@@ -144,6 +155,7 @@ public class IdleDO {
                 "id=" + id +
                 ", userid='" + user_id + '\'' +
                 ", price='" + price + '\'' +
+                ", postage='" + postage + '\'' +
                 ", title='" + title + '\'' +
                 ", detail='" + detail + '\'' +
                 ", image='" + image + '\'' +

@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
  */
 
 @RestController
-@RequestMapping("v1/idle")
+@RequestMapping("v1/idles")
 @Validated
 public class IdleController {
 

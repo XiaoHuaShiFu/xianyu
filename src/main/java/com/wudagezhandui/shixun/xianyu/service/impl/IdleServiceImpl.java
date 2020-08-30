@@ -73,7 +73,8 @@ public class IdleServiceImpl implements IdleService {
         StringBuffer buffer = new StringBuffer();
         //String[] urls = new String[length];
         for(int i = 0;i<length;i++){
-            buffer.append(fileService.save(images[i], IdleConstant.PREFIX_IMAGE_FILE_DIRECTORY));
+            //buffer.append(fileService.save(images[i], IdleConstant.PREFIX_IMAGE_FILE_DIRECTORY));
+            buffer.append(fileService.saveAndGetUrl(images[i],IdleConstant.PREFIX_IMAGE_FILE_DIRECTORY));
             buffer.append(',');
         }
         buffer.deleteCharAt(buffer.length()-1);
@@ -143,7 +144,8 @@ public class IdleServiceImpl implements IdleService {
         StringBuffer buffer = new StringBuffer();
         //String[] urls = new String[length];
         for(int i = 0;i<length;i++){
-            buffer.append(fileService.save(images[i], IdleConstant.PREFIX_IMAGE_FILE_DIRECTORY));
+            //buffer.append(fileService.save(images[i], IdleConstant.PREFIX_IMAGE_FILE_DIRECTORY));
+            buffer.append(fileService.saveAndGetUrl(images[i],IdleConstant.PREFIX_IMAGE_FILE_DIRECTORY));
             buffer.append(',');
         }
         buffer.deleteCharAt(buffer.length()-1);

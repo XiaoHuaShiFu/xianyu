@@ -117,9 +117,9 @@ public class IdleServiceImpl implements IdleService {
         PageHelper.startPage(query.getPageNum(), query.getPageSize());
         Page<IdleDO> idleDOList = (Page<IdleDO>) idleMapper.listIdles(query);
         PageInfo<IdleDO> pageInfo = new PageInfo<>(idleDOList);
-        if (idleDOList.size() < 1) {
-            return Result.fail(ErrorCode.INVALID_PARAMETER_NOT_FOUND, "Not found.");
-        }
+//        if (idleDOList.size() < 1) {
+//            return Result.fail(ErrorCode.INVALID_PARAMETER_NOT_FOUND, "Not found.");
+//        }
 
         return Result.success(pageInfo);
     }

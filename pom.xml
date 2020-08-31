@@ -153,6 +153,14 @@
         </dependency>
         <!--        java8以上缺少的jar包-->
 
+        <!--        gson-->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+        <!--        gson-->
+
     </dependencies>
 
     <build>

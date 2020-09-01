@@ -1,9 +1,5 @@
 package com.wudagezhandui.shixun.xianyu.pojo.do0;
 
-
-
-
-
 import com.wudagezhandui.shixun.xianyu.pojo.modules.TheStatus;
 
 import java.math.BigDecimal;
@@ -23,6 +19,10 @@ public class OrderDO {
     private String ali_pay_number;//支付宝支付号
     private BigInteger address_id;//地址
 
+
+
+
+
     public TheStatus getStatus() {
         return status;
     }
@@ -35,6 +35,9 @@ public class OrderDO {
     public void setId(BigInteger id) {
         this.id = id;
     }
+
+
+
     public String getCreate_time() {
         return create_time;
     }

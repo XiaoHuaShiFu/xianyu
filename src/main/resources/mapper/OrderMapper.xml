@@ -49,7 +49,7 @@
         insert into `order`
         (transaction_time,seller_id,buyer_id,idle_id,freight,actual_pay,total_price,ali_pay_number,address_id,status)
         values(#{transaction_time},#{seller_id},#{buyer_id},#{idle_id},#{freight},#{actual_pay},#{total_price},#{ali_pay_number},#{address_id},
-        #{status,jdbcType=VARCHAR,javaType=com.user.pojo.TheStatus,typeHandler=com.wudagezhandui.shixun.xianyu.controller.handler.JSONHandler})
+        #{status,jdbcType=VARCHAR,javaType=com.wudagezhandui.shixun.xianyu.pojo.modules.TheStatus,typeHandler=com.wudagezhandui.shixun.xianyu.type.handler.JSONHandler})
     </insert>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
@@ -72,7 +72,7 @@
         total_price=#{total_price},
         ali_pay_number=#{ali_pay_number},
         address_id=#{address_id},
-        status=#{status,jdbcType=VARCHAR,javaType=com.wudagezhandui.shixun.xianyu.pojo.modules.TheStatus,typeHandler=com.wudagezhandui.shixun.xianyu.controller.handler.JSONHandler}
+        status=#{status,jdbcType=VARCHAR,javaType=com.wudagezhandui.shixun.xianyu.pojo.modules.TheStatus,typeHandler=com.wudagezhandui.shixun.xianyu.type.handler.JSONHandler}
         where id=#{id}
     </update>
 

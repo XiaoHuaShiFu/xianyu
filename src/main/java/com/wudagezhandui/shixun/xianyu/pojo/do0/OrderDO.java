@@ -1,6 +1,6 @@
-package src.main.java.com.wudagezhandui.shixun.xianyu.pojo.do0;
+package com.wudagezhandui.shixun.xianyu.pojo.do0;
 
-import src.main.java.com.wudagezhandui.shixun.xianyu.pojo.modules.TheStatus;
+import com.wudagezhandui.shixun.xianyu.pojo.modules.TheStatus;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

@@ -3,7 +3,7 @@ package com.wudagezhandui.shixun.xianyu.type.handler;
 import com.google.gson.Gson;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
-import src.main.java.com.wudagezhandui.shixun.xianyu.pojo.modules.TheStatus;
+import com.wudagezhandui.shixun.xianyu.pojo.modules.TheStatus;
 
 import java.io.IOException;
 import java.sql.CallableStatement;

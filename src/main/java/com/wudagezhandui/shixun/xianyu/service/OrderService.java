@@ -1,19 +1,19 @@
 package com.wudagezhandui.shixun.xianyu.service;
 
-import org.springframework.core.annotation.Order;
+import com.wudagezhandui.shixun.xianyu.pojo.do0.OrderDO;
 
 import java.util.List;
 
 public interface OrderService {
-    Order selectByPrimaryKey(Long id);
+    OrderDO selectByPrimaryKey(Long id);
 
-    void insert(Order order);
+    void insert(OrderDO order);
 
-    List<Order> selectBySellerId(Long id);
+    List<OrderDO> selectBySellerId(Long id);
 
-    List<Order> selectByBuyerId(Long id);
+    List<OrderDO> selectByBuyerId(Long id);
 
-    void updateOrder(Order order);
+    void updateOrder(OrderDO order);
 
     void deleteByPrimaryKey(Long id);
 }

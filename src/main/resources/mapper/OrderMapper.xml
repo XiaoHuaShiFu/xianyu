@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wudagezhandui.shixun.xianyu.dao.OrderMapper" >
 
-    <resultMap id="BaseResultMap" type="com.wudagezhandui.shixun.xianyu.pojo.do0.Order" >
+    <resultMap id="BaseResultMap" type="com.wudagezhandui.shixun.xianyu.pojo.do0.OrderDO" >
         <id column="id" property="id" jdbcType="BIGINT" />
         <result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
         <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
@@ -20,7 +20,7 @@
 
     </resultMap>
 
-    <select id="selectByPrimaryKey" resultType="com.wudagezhandui.shixun.xianyu.pojo.do0.Order" parameterType="java.lang.Long" >
+    <select id="selectByPrimaryKey" resultType="com.wudagezhandui.shixun.xianyu.pojo.do0.OrderDO" parameterType="java.lang.Long" >
         select * from `order` where id =
         <if test="_parameter != null" >
             #{_parameter}
@@ -45,11 +45,11 @@
     </select>
 
 
-    <insert id="insert" parameterType="com.wudagezhandui.shixun.xianyu.pojo.do0.Order">
+    <insert id="insert" parameterType="com.wudagezhandui.shixun.xianyu.pojo.do0.OrderDO">
         insert into `order`
         (transaction_time,seller_id,buyer_id,idle_id,freight,actual_pay,total_price,ali_pay_number,address_id,status)
         values(#{transaction_time},#{seller_id},#{buyer_id},#{idle_id},#{freight},#{actual_pay},#{total_price},#{ali_pay_number},#{address_id},
-        #{status,jdbcType=VARCHAR,javaType=com.user.pojo.TheStatus,typeHandler=com.wudagezhandui.shixun.xianyu.controller.handler.JSONHandler})
+        #{status,jdbcType=VARCHAR,javaType=com.wudagezhandui.shixun.xianyu.pojo.modules.TheStatus,typeHandler=com.wudagezhandui.shixun.xianyu.type.handler.JSONHandler})
     </insert>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
@@ -61,7 +61,7 @@
 
 
 
-    <update id="updateOrder" parameterType="com.wudagezhandui.shixun.xianyu.pojo.do0.Order">
+    <update id="updateOrder" parameterType="com.wudagezhandui.shixun.xianyu.pojo.do0.OrderDO">
         update `order`
         set transaction_time=#{transaction_time},
         seller_id=#{seller_id},
@@ -72,7 +72,7 @@
         total_price=#{total_price},
         ali_pay_number=#{ali_pay_number},
         address_id=#{address_id},
-        status=#{status,jdbcType=VARCHAR,javaType=com.wudagezhandui.shixun.xianyu.pojo.modules.TheStatus,typeHandler=com.wudagezhandui.shixun.xianyu.controller.handler.JSONHandler}
+        status=#{status,jdbcType=VARCHAR,javaType=com.wudagezhandui.shixun.xianyu.pojo.modules.TheStatus,typeHandler=com.wudagezhandui.shixun.xianyu.type.handler.JSONHandler}
         where id=#{id}
     </update>
 

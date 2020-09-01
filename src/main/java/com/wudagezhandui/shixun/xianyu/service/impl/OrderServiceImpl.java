@@ -1,39 +1,40 @@
 package com.wudagezhandui.shixun.xianyu.service.impl;
 
 import com.wudagezhandui.shixun.xianyu.dao.OrderMapper;
+import com.wudagezhandui.shixun.xianyu.pojo.do0.OrderDO;
 import com.wudagezhandui.shixun.xianyu.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Service("OrderService")
+
+@Service("orderService")
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderMapper mapper;
 
     @Override
-    public Order selectByPrimaryKey(Long id) {
+    public OrderDO selectByPrimaryKey(Long id) {
         return mapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public void insert(Order order) {
+    public void insert(OrderDO order) {
         mapper.insert(order);
     }
 
     @Override
-    public List<Order> selectBySellerId(Long id) {
+    public List<OrderDO> selectBySellerId(Long id) {
         return mapper.selectBySellerId(id);
     }
 
     @Override
-    public List<Order> selectByBuyerId(Long id) {
+    public List<OrderDO> selectByBuyerId(Long id) {
         return mapper.selectByBuyerId(id);
     }
 
     @Override
-    public void updateOrder(Order order) {
+    public void updateOrder(OrderDO order) {
         mapper.updateOrder(order);
     }
 

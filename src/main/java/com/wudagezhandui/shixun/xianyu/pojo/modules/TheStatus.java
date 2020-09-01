@@ -1,4 +1,4 @@
-package src.main.java.com.wudagezhandui.shixun.xianyu.pojo.modules;
+package com.wudagezhandui.shixun.xianyu.pojo.modules;
 
 public class TheStatus {
     //@SerializedName("status1")

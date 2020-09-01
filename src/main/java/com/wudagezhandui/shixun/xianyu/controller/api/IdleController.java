@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.stream.Collectors;
 
@@ -33,7 +34,7 @@ import java.util.stream.Collectors;
  */
 
 @RestController
-@RequestMapping("v1/idle")
+@RequestMapping("v1/idles")
 @Validated
 public class IdleController {
 
@@ -65,9 +66,9 @@ public class IdleController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     @ErrorHandler
-    public Object post(@Validated(GroupPost.class) @RequestBody IdleDO Idle) {
+    public Object post(@Validated(GroupPost.class)  IdleDO Idle, MultipartFile[] images) {
         //System.out.println(Idle.getUser_id());
-        Result<IdleDO> result = idleService.saveIdle(Idle);
+        Result<IdleDO> result = idleService.saveIdle(Idle,images);
         return !result.isSuccess() ? result : mapper.map(result.getData(), IdleVO.class);
     }
 
@@ -161,11 +162,11 @@ public class IdleController {
     @ResponseStatus(value = HttpStatus.OK)
     @TokenAuth(tokenType = TokenType.USER)
     @ErrorHandler
-    public Object put(TokenAO tokenAO, @Validated(Group.class) @RequestBody IdleDO idle) {
+    public Object put(TokenAO tokenAO, @Validated(Group.class) IdleDO idle, MultipartFile[] images) {
         if (!idle.getUser_id().equals(tokenAO.getId())) {
             return Result.fail(ErrorCode.FORBIDDEN_SUB_USER);
         }
-        Result<IdleDO> result = idleService.updateIdle(idle);
+        Result<IdleDO> result = idleService.updateIdle(idle,images);
 
         return !result.isSuccess() ? result : mapper.map(result.getData(), IdleVO.class);
     }

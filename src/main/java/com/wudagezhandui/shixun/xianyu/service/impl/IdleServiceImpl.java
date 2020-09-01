@@ -12,12 +12,14 @@ import com.wudagezhandui.shixun.xianyu.result.ErrorCode;
 import com.wudagezhandui.shixun.xianyu.result.Result;
 import com.wudagezhandui.shixun.xianyu.service.FileService;
 import com.wudagezhandui.shixun.xianyu.service.IdleService;
+import com.wudagezhandui.shixun.xianyu.service.constant.IdleConstant;
 import com.wudagezhandui.shixun.xianyu.util.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 
 /***
@@ -55,7 +57,7 @@ public class IdleServiceImpl implements IdleService {
      */
     @Override
     @Transactional
-    public Result<IdleDO> saveIdle(IdleDO idle) {
+    public Result<IdleDO> saveIdle(IdleDO idle, MultipartFile[] images) {
         /*//物品在表中
         IdleDO temp = idleMapper.getIdle(idle.getId());
         if(temp!=null){
@@ -64,6 +66,21 @@ public class IdleServiceImpl implements IdleService {
         }*/
         //System.out.println(idle.getUser_id());
         idle.setStatus(IdleDO.Status.NORMAL);
+
+
+        //存储image文件，获取url
+        int length = images.length;
+        StringBuffer buffer = new StringBuffer();
+        //String[] urls = new String[length];
+        for(int i = 0;i<length;i++){
+            //buffer.append(fileService.save(images[i], IdleConstant.PREFIX_IMAGE_FILE_DIRECTORY));
+            buffer.append(fileService.saveAndGetUrl(images[i],IdleConstant.PREFIX_IMAGE_FILE_DIRECTORY));
+            buffer.append(',');
+        }
+        buffer.deleteCharAt(buffer.length()-1);
+        idle.setImage(buffer.toString());
+
+
         int count = idleMapper.saveIdle(idle);
         //保存失败
         if(count<1){
@@ -100,9 +117,9 @@ public class IdleServiceImpl implements IdleService {
         PageHelper.startPage(query.getPageNum(), query.getPageSize());
         Page<IdleDO> idleDOList = (Page<IdleDO>) idleMapper.listIdles(query);
         PageInfo<IdleDO> pageInfo = new PageInfo<>(idleDOList);
-        if (idleDOList.size() < 1) {
-            return Result.fail(ErrorCode.INVALID_PARAMETER_NOT_FOUND, "Not found.");
-        }
+//        if (idleDOList.size() < 1) {
+//            return Result.fail(ErrorCode.INVALID_PARAMETER_NOT_FOUND, "Not found.");
+//        }
 
         return Result.success(pageInfo);
     }
@@ -113,7 +130,7 @@ public class IdleServiceImpl implements IdleService {
      * @return 更新之后的信息
      */
     @Override
-    public Result<IdleDO> updateIdle(IdleDO idle) {
+    public Result<IdleDO> updateIdle(IdleDO idle, MultipartFile[] images) {
         //更新可以更新的属性
         IdleDO idleDO = new IdleDO();
         idleDO.setTitle(idle.getTitle());
@@ -122,6 +139,19 @@ public class IdleServiceImpl implements IdleService {
         idleDO.setImage(idle.getImage());
         idleDO.setStatus(idle.getStatus());
 
+        //存储image文件，获取url
+        int length = images.length;
+        StringBuffer buffer = new StringBuffer();
+        //String[] urls = new String[length];
+        for(int i = 0;i<length;i++){
+            //buffer.append(fileService.save(images[i], IdleConstant.PREFIX_IMAGE_FILE_DIRECTORY));
+            buffer.append(fileService.saveAndGetUrl(images[i],IdleConstant.PREFIX_IMAGE_FILE_DIRECTORY));
+            buffer.append(',');
+        }
+        buffer.deleteCharAt(buffer.length()-1);
+        idle.setImage(buffer.toString());
+
+        idleDO.setImage(buffer.toString());
         //所有参数为空
         if(BeanUtils.allFieldIsNull(idleDO)){
             return Result.fail(ErrorCode.INVALID_PARAMETER_IS_BLANK,

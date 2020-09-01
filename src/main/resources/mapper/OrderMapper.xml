@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wudagezhandui.shixun.xianyu.dao.OrderMapper" >
+
+    <resultMap id="BaseResultMap" type="com.wudagezhandui.shixun.xianyu.pojo.do0.OrderDO" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
+        <result column="transaction_time" property="transaction_time" jdbcType="TIMESTAMP" />
+        <result column="seller_id" property="seller_id" jdbcType="BIGINT" />
+        <result column="buyer_id" property="buyer_id" jdbcType="BIGINT" />
+        <result column="idle_id" property="idle_id" jdbcType="BIGINT" />
+        <result column="freight" property="freight" jdbcType="DECIMAL" />
+        <result column="actual_pay" property="actual_pay" jdbcType="DECIMAL" />
+        <result column="total_price" property="total_price" jdbcType="DECIMAL" />
+        <result column="ali_pay_number" property="ali_pay_number" jdbcType="VARCHAR" />
+        <result column="address_id" property="address_id" jdbcType="BIGINT" />
+        <result column="status" property="status" javaType="com.wudagezhandui.shixun.xianyu.pojo.modules.TheStatus" jdbcType="VARCHAR" typeHandler="com.wudagezhandui.shixun.xianyu.type.handler.JSONHandler"/>
+
+
+    </resultMap>
+
+    <select id="selectByPrimaryKey" resultType="com.wudagezhandui.shixun.xianyu.pojo.do0.OrderDO" parameterType="java.lang.Long" >
+        select * from `order` where id =
+        <if test="_parameter != null" >
+            #{_parameter}
+        </if>
+    </select>
+
+
+    <select id="selectBySellerId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select * from `order` where seller_id =
+        <if test="_parameter != null" >
+            #{_parameter}
+        </if>
+        order by transaction_time desc
+    </select>
+
+    <select id="selectByBuyerId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select * from `order` where buyer_id =
+        <if test="_parameter != null" >
+            #{_parameter}
+        </if>
+        order by transaction_time desc
+    </select>
+
+
+    <insert id="insert" parameterType="com.wudagezhandui.shixun.xianyu.pojo.do0.OrderDO">
+        insert into `order`
+        (transaction_time,seller_id,buyer_id,idle_id,freight,actual_pay,total_price,ali_pay_number,address_id,status)
+        values(#{transaction_time},#{seller_id},#{buyer_id},#{idle_id},#{freight},#{actual_pay},#{total_price},#{ali_pay_number},#{address_id},
+        #{status,jdbcType=VARCHAR,javaType=com.wudagezhandui.shixun.xianyu.pojo.modules.TheStatus,typeHandler=com.wudagezhandui.shixun.xianyu.type.handler.JSONHandler})
+    </insert>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+        delete from `order` where id=
+        <if test="_parameter != null" >
+            #{_parameter}
+        </if>
+    </delete>
+
+
+
+    <update id="updateOrder" parameterType="com.wudagezhandui.shixun.xianyu.pojo.do0.OrderDO">
+        update `order`
+        set transaction_time=#{transaction_time},
+        seller_id=#{seller_id},
+        buyer_id=#{buyer_id},
+        idle_id=#{idle_id},
+        freight=#{freight},
+        actual_pay=#{actual_pay},
+        total_price=#{total_price},
+        ali_pay_number=#{ali_pay_number},
+        address_id=#{address_id},
+        status=#{status,jdbcType=VARCHAR,javaType=com.wudagezhandui.shixun.xianyu.pojo.modules.TheStatus,typeHandler=com.wudagezhandui.shixun.xianyu.type.handler.JSONHandler}
+        where id=#{id}
+    </update>
+
+
+</mapper>

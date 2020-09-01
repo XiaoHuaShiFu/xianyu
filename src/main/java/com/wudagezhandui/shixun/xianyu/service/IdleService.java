@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface IdleService {
 
-    Result<IdleDO> saveIdle(IdleDO idle);
+    Result<IdleDO> saveIdle(IdleDO idle,MultipartFile[] images);
 
     Result<IdleDO> getIdle(Integer id);
 
@@ -22,7 +22,7 @@ public interface IdleService {
 
     Result<PageInfo<IdleDO>> listIdles(IdleQuery query);
 
-    Result<IdleDO> updateIdle(IdleDO idle);
+    Result<IdleDO> updateIdle(IdleDO idle, MultipartFile[] images);
 
     //Result<IdleDO> updateAvatar(Integer id, MultipartFile avatar);
 }

@@ -13,6 +13,8 @@ public class IdleVO {
 
     private BigDecimal price;
 
+    private BigDecimal postage;
+
     private String title;
 
     private String detail;
@@ -25,10 +27,11 @@ public class IdleVO {
 
     }
 
-    public IdleVO(Integer id, Integer userId, BigDecimal price, String title, String detail, String image, IdleDO.Status status) {
+    public IdleVO(Integer id, Integer userId, BigDecimal price, BigDecimal postage, String title, String detail, String image, IdleDO.Status status) {
         this.id = id;
         this.userId = userId;
         this.price = price;
+        this.postage = postage;
         this.title = title;
         this.detail = detail;
         this.image = image;
@@ -57,6 +60,14 @@ public class IdleVO {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public BigDecimal getPostage() {
+        return postage;
+    }
+
+    public void setPostage(BigDecimal postage) {
+        this.postage = postage;
     }
 
     public String getTitle() {
@@ -97,6 +108,7 @@ public class IdleVO {
                 "id=" + id +
                 ", userid='" + userId + '\'' +
                 ", price='" + price + '\'' +
+                ", postage='" + postage + '\'' +
                 ", title='" + title + '\'' +
                 ", detail='" + detail + '\'' +
                 ", image='" + image + '\'' +

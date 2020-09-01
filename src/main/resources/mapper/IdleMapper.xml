@@ -3,7 +3,7 @@
 <mapper namespace="com.wudagezhandui.shixun.xianyu.dao.IdleMapper">
 
     <sql id="Base_Column_List">
-        id, user_id, price, title, detail, image, status, create_time, update_time
+        id, user_id, price, postage, title, detail, image, status, create_time, update_time
     </sql>
 
     <insert id="saveIdle" parameterType="com.wudagezhandui.shixun.xianyu.pojo.do0.IdleDO"
@@ -15,6 +15,9 @@
             </if>
             <if test="price!= null">
                 price,
+            </if>
+            <if test="postage!= null">
+                postage,
             </if>
             <if test="title != null">
                 title,
@@ -35,6 +38,9 @@
             </if>
             <if test="price!= null">
                 #{price},
+            </if>
+            <if test="postage!= null">
+                #{postage},
             </if>
             <if test="title != null">
                 #{title},
@@ -108,6 +114,9 @@
             </if>
             <if test="price!= null">
                 price = #{price},
+            </if>
+            <if test="postage!= null">
+                postage = #{postage},
             </if>
             <if test="title != null">
                 title = #{title},

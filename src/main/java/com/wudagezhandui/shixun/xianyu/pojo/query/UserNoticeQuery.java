@@ -27,6 +27,8 @@ public class UserNoticeQuery {
     /**
      * 模糊搜素
      */
+    private String title;
+
     private String content;
 
     /**
@@ -38,13 +40,14 @@ public class UserNoticeQuery {
     }
 
     public UserNoticeQuery(Integer pageNum, Integer pageSize, Integer id, List<Integer> idList, Integer userId,
-                           UserNoticeType type, String content, Boolean count) {
+                           UserNoticeType type, String title, String content, Boolean count) {
         this.pageNum = pageNum;
         this.pageSize = pageSize;
         this.id = id;
         this.idList = idList;
         this.userId = userId;
         this.type = type;
+        this.title = title;
         this.content = content;
         this.count = count;
     }
@@ -95,6 +98,14 @@ public class UserNoticeQuery {
 
     public void setType(UserNoticeType type) {
         this.type = type;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getContent() {

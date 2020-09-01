@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wudagezhandui.shixun.xianyu.dao.UserNoticeMapper">
     <sql id="BaseColumnList">
-        id, user_id, type, content, key_vcom.wudagezhandui.shixun.xianyualue, notice_time, create_time, update_time
+        id, user_id, type, title, content, key_value, notice_time, create_time, update_time
     </sql>
 
     <insert id="insertUserNotice" parameterType="com.wudagezhandui.shixun.xianyu.pojo.do0.UserNoticeDO"
             useGeneratedKeys="true" keyProperty="id">
-        insert into user_notice(user_id, type, content, key_value, notice_time)
-        values(#{userId}, #{type}, #{content}, #{keyValue}, #{noticeTime})
+        insert into user_notice(user_id, type, title, content, key_value, notice_time)
+        values(#{userId}, #{type}, #{title}, #{content}, #{keyValue}, #{noticeTime})
     </insert>
 
     <select id="getUserNotice" parameterType="integer" resultType="com.wudagezhandui.shixun.xianyu.pojo.do0.UserNoticeDO">
@@ -40,6 +40,9 @@
             <if test="type != null">
                 and type = #{type}
             </if>
+            <if test="title != null">
+                and title like "%"#{title}"%"
+            </if>
             <if test="content != null">
                 and content like "%"#{content}"%"
             </if>
@@ -67,6 +70,9 @@
             </if>
             <if test="type != null">
                 and type = #{type}
+            </if>
+            <if test="title != null">
+                and title like "%"#{title}"%"
             </if>
             <if test="content != null">
                 and content like "%"#{content}"%"

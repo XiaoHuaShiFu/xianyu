@@ -18,6 +18,8 @@ public class UserNoticeVO {
 
     private UserNoticeType type;
 
+    private String title;
+
     private String content;
 
     private String keyValue;
@@ -27,11 +29,12 @@ public class UserNoticeVO {
     public UserNoticeVO() {
     }
 
-    public UserNoticeVO(Integer id, Integer userId, UserNoticeType type, String content, String keyValue,
+    public UserNoticeVO(Integer id, Integer userId, UserNoticeType type, String title, String content, String keyValue,
                         Date noticeTime) {
         this.id = id;
         this.userId = userId;
         this.type = type;
+        this.title = title;
         this.content = content;
         this.keyValue = keyValue;
         this.noticeTime = noticeTime;
@@ -59,6 +62,14 @@ public class UserNoticeVO {
 
     public void setType(UserNoticeType type) {
         this.type = type;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getContent() {
@@ -91,6 +102,7 @@ public class UserNoticeVO {
                 "id=" + id +
                 ", userId=" + userId +
                 ", type=" + type +
+                ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", keyValue='" + keyValue + '\'' +
                 ", noticeTime=" + noticeTime +

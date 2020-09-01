@@ -34,10 +34,17 @@ public class UserNoticeDO {
             groups = {GroupPut.class})
     private UserNoticeType type;
 
+    @NotBlank(message = "INVALID_PARAMETER_IS_BLANK: The title must be not blank.",
+            groups = {GroupPost.class})
+    @Size(message = "INVALID_PARAMETER_SIZE: The size of title must be between 1 to 40.",
+            min = 1, max = 40,
+            groups = {Group.class})
+    private String title;
+
     @NotBlank(message = "INVALID_PARAMETER_IS_BLANK: The content must be not blank.",
             groups = {GroupPost.class})
-    @Size(message = "INVALID_PARAMETER_SIZE: The size of content must be between 1 to 200.",
-            min = 1, max = 200,
+    @Size(message = "INVALID_PARAMETER_SIZE: The size of content must be between 1 to 100.",
+            min = 1, max = 100,
             groups = {Group.class})
     private String content;
 
@@ -58,11 +65,12 @@ public class UserNoticeDO {
     public UserNoticeDO() {
     }
 
-    public UserNoticeDO(Integer id, Integer userId, UserNoticeType type, String content, String keyValue,
+    public UserNoticeDO(Integer id, Integer userId, UserNoticeType type, String title,String content, String keyValue,
                         Date noticeTime, Date createTime, Date updateTime) {
         this.id = id;
         this.userId = userId;
         this.type = type;
+        this.title = title;
         this.content = content;
         this.keyValue = keyValue;
         this.noticeTime = noticeTime;
@@ -92,6 +100,14 @@ public class UserNoticeDO {
 
     public void setType(UserNoticeType type) {
         this.type = type;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getContent() {
@@ -140,6 +156,7 @@ public class UserNoticeDO {
                 "id=" + id +
                 ", userId=" + userId +
                 ", type=" + type +
+                ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", keyValue='" + keyValue + '\'' +
                 ", noticeTime=" + noticeTime +

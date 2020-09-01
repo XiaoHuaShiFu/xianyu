@@ -11,12 +11,12 @@ public enum UserNoticeType {
     /**
      * 分享评论
      */
-    SHARE_COMMENT,
+    IDLE_COMMENT,
 
     /**
      * 分享评论的回复
      */
-    SHARE_COMMENT_REPLY,
+    IDLE_COMMENT_REPLY,
 
     /**
      * 其他
@@ -26,7 +26,7 @@ public enum UserNoticeType {
     /**
      * 警告
      */
-    WARNING,
+    IDLE_WAND,
 
     /**
      * 通知
@@ -34,7 +34,12 @@ public enum UserNoticeType {
     NOTICE,
 
     /**
-     * 关注
+     * 购买
      */
-    FOLLOW
+    IDLE_BUY,
+
+    /**
+     * 卖
+     */
+    IDLE_SELL
 }

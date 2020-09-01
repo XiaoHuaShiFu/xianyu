@@ -64,7 +64,7 @@ public class UserNoticeController {
      */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
-    @TokenAuth(tokenType = TokenType.ADMIN)
+    //@TokenAuth(tokenType = {TokenType.USER, TokenType.ADMIN})
     @ErrorHandler
     public Object post(@Validated(GroupPost.class) UserNoticeDO userNoticeDO) {
         Result<UserNoticeDO> result = userNoticeService.saveUserNotice(userNoticeDO);
@@ -82,7 +82,7 @@ public class UserNoticeController {
      */
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
-    @TokenAuth(tokenType = {TokenType.USER, TokenType.ADMIN})
+    //@TokenAuth(tokenType = {TokenType.USER, TokenType.ADMIN})
     @ErrorHandler
     public Object get(UserNoticeQuery query) {
         // 统计条数

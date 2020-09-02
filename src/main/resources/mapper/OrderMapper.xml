@@ -4,17 +4,17 @@
 
     <resultMap id="BaseResultMap" type="com.wudagezhandui.shixun.xianyu.pojo.do0.OrderDO" >
         <id column="id" property="id" jdbcType="BIGINT" />
-        <result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
-        <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
-        <result column="transaction_time" property="transaction_time" jdbcType="TIMESTAMP" />
-        <result column="seller_id" property="seller_id" jdbcType="BIGINT" />
-        <result column="buyer_id" property="buyer_id" jdbcType="BIGINT" />
-        <result column="idle_id" property="idle_id" jdbcType="BIGINT" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="transaction_time" property="transactionTime" jdbcType="TIMESTAMP" />
+        <result column="seller_id" property="sellerId" jdbcType="BIGINT" />
+        <result column="buyer_id" property="buyerId" jdbcType="BIGINT" />
+        <result column="idle_id" property="idleId" jdbcType="BIGINT" />
         <result column="freight" property="freight" jdbcType="DECIMAL" />
-        <result column="actual_pay" property="actual_pay" jdbcType="DECIMAL" />
-        <result column="total_price" property="total_price" jdbcType="DECIMAL" />
-        <result column="ali_pay_number" property="ali_pay_number" jdbcType="VARCHAR" />
-        <result column="address_id" property="address_id" jdbcType="BIGINT" />
+        <result column="actual_pay" property="actualPay" jdbcType="DECIMAL" />
+        <result column="total_price" property="totalPrice" jdbcType="DECIMAL" />
+        <result column="ali_pay_number" property="aliPayNumber" jdbcType="VARCHAR" />
+        <result column="address_id" property="addressId" jdbcType="BIGINT" />
         <result column="status" property="status" javaType="com.wudagezhandui.shixun.xianyu.pojo.modules.TheStatus" jdbcType="VARCHAR" typeHandler="com.wudagezhandui.shixun.xianyu.type.handler.JSONHandler"/>
 
 
@@ -45,20 +45,12 @@
     </select>
 
 
-    <insert id="insert" parameterType="com.wudagezhandui.shixun.xianyu.pojo.do0.OrderDO">
+    <insert id="insert" parameterType="com.wudagezhandui.shixun.xianyu.pojo.do0.OrderDO" useGeneratedKeys="true" keyProperty="id">>
         insert into `order`
         (transaction_time,seller_id,buyer_id,idle_id,freight,actual_pay,total_price,ali_pay_number,address_id,status)
         values(#{transaction_time},#{seller_id},#{buyer_id},#{idle_id},#{freight},#{actual_pay},#{total_price},#{ali_pay_number},#{address_id},
         #{status,jdbcType=VARCHAR,javaType=com.wudagezhandui.shixun.xianyu.pojo.modules.TheStatus,typeHandler=com.wudagezhandui.shixun.xianyu.type.handler.JSONHandler})
     </insert>
-
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-        delete from `order` where id=
-        <if test="_parameter != null" >
-            #{_parameter}
-        </if>
-    </delete>
-
 
 
     <update id="updateOrder" parameterType="com.wudagezhandui.shixun.xianyu.pojo.do0.OrderDO">

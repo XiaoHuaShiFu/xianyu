@@ -17,7 +17,7 @@ public interface OrderMapper {
      * 生成订单
      * @param order 新的订单
      */
-    void insert(OrderDO order);
+    int insert(OrderDO order);
     /**
      * 查找卖家所有订单
      * @param id 卖家id
@@ -34,10 +34,6 @@ public interface OrderMapper {
      * 更新订单信息
      * @param order 新的订单信息
      */
-    void updateOrder(OrderDO order);
-    /**
-     * 删除订单
-     * @param id 订单号
-     */
-    void deleteByPrimaryKey(Long id);
+    int updateOrder(OrderDO order);
+
 }

@@ -1,19 +1,20 @@
 package com.wudagezhandui.shixun.xianyu.service;
 
 import com.wudagezhandui.shixun.xianyu.pojo.do0.OrderDO;
+import com.wudagezhandui.shixun.xianyu.result.Result;
 
 import java.util.List;
 
 public interface OrderService {
-    OrderDO selectByPrimaryKey(Long id);
+    Result<OrderDO> selectByPrimaryKey(Long id);
 
-    void insert(OrderDO order);
+    Result<OrderDO> insert(OrderDO order);
 
-    List<OrderDO> selectBySellerId(Long id);
+    Result<List<OrderDO>>selectBySellerId(Long id);
 
-    List<OrderDO> selectByBuyerId(Long id);
+    Result<List<OrderDO>> selectByBuyerId(Long id);
 
-    void updateOrder(OrderDO order);
+    Result<OrderDO> updateOrder(OrderDO order);
 
-    void deleteByPrimaryKey(Long id);
+
 }

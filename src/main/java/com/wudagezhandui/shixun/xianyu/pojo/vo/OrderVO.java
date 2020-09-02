@@ -1,41 +1,29 @@
-package com.wudagezhandui.shixun.xianyu.pojo.do0;
+package com.wudagezhandui.shixun.xianyu.pojo.vo;
 
 import com.wudagezhandui.shixun.xianyu.pojo.modules.TheStatus;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class OrderDO {
+public class OrderVO {
     private Long id;//自增 订单号
-    private Date createTime;
-    private Date updateTime;
     private Date transactionTime;//交易时间
-    private Long sellerId;//卖家号
-    private Long buyerId; //买家号
-    private Long idleId;//商品号
+    private UserVO seller ;//卖家
+    private UserVO buyer; //买家
+    private IdleVO idle;//商品
     private BigDecimal freight;//运费
     private BigDecimal actualPay;//实际付款
     private BigDecimal totalPrice;//总价
     private TheStatus status;//订单状态
     private String aliPayNumber;//支付宝支付号
-    private Long addressId;//地址
+    private Long addressId;//地址id
 
-
-
-    public Date getCreateTime() {
-        return createTime;
+    public Long getId() {
+        return id;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Date getTransactionTime() {
@@ -46,44 +34,28 @@ public class OrderDO {
         this.transactionTime = transactionTime;
     }
 
-    public Long getId() {
-        return id;
+    public UserVO getSeller() {
+        return seller;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setSeller(UserVO seller) {
+        this.seller = seller;
     }
 
-    public Long getSellerId() {
-        return sellerId;
+    public UserVO getBuyer() {
+        return buyer;
     }
 
-    public void setSellerId(Long sellerId) {
-        this.sellerId = sellerId;
+    public void setBuyer(UserVO buyer) {
+        this.buyer = buyer;
     }
 
-    public Long getBuyerId() {
-        return buyerId;
+    public IdleVO getIdle() {
+        return idle;
     }
 
-    public void setBuyerId(Long buyerId) {
-        this.buyerId = buyerId;
-    }
-
-    public Long getIdleId() {
-        return idleId;
-    }
-
-    public void setIdleId(Long idleId) {
-        this.idleId = idleId;
-    }
-
-    public Long getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(Long addressId) {
-        this.addressId = addressId;
+    public void setIdle(IdleVO idle) {
+        this.idle = idle;
     }
 
     public BigDecimal getFreight() {
@@ -126,5 +98,11 @@ public class OrderDO {
         this.aliPayNumber = aliPayNumber;
     }
 
+    public Long getAddressId() {
+        return addressId;
+    }
 
+    public void setAddressId(Long addressId) {
+        this.addressId = addressId;
+    }
 }

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wudagezhandui.shixun.xianyu.dao.UserNoticeMapper">
+    <sql id="BaseColumnList">
+        id, user_id, type, title, content, key_value, notice_time, create_time, update_time
+    </sql>
+
+    <insert id="insertUserNotice" parameterType="com.wudagezhandui.shixun.xianyu.pojo.do0.UserNoticeDO"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into user_notice(user_id, type, title, content, key_value, notice_time)
+        values(#{userId}, #{type}, #{title}, #{content}, #{keyValue}, #{noticeTime})
+    </insert>
+
+    <select id="getUserNotice" parameterType="integer" resultType="com.wudagezhandui.shixun.xianyu.pojo.do0.UserNoticeDO">
+        select
+        <include refid="BaseColumnList"/>
+        from user_notice
+        where id = #{id}
+    </select>
+
+    <select id="listUserNotices" parameterType="com.wudagezhandui.shixun.xianyu.pojo.query.UserNoticeQuery"
+            resultType="com.wudagezhandui.shixun.xianyu.pojo.do0.UserNoticeDO">
+        select
+        <include refid="BaseColumnList"/>
+        from user_notice
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="idList != null">
+                id in (
+                    <foreach collection="idList"  item="item" index="index" separator=",">
+                        #{item}
+                    </foreach>
+                )
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+            <if test="title != null">
+                and title like "%"#{title}"%"
+            </if>
+            <if test="content != null">
+                and content like "%"#{content}"%"
+            </if>
+        </where>
+        order by notice_time desc
+    </select>
+
+    <select id="count" resultType="java.lang.Integer" parameterType="com.wudagezhandui.shixun.xianyu.pojo.query.UserNoticeQuery">
+        select
+        count(*)
+        from user_notice
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="idList != null">
+                id in (
+                <foreach collection="idList"  item="item" index="index" separator=",">
+                    #{item}
+                </foreach>
+                )
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+            <if test="title != null">
+                and title like "%"#{title}"%"
+            </if>
+            <if test="content != null">
+                and content like "%"#{content}"%"
+            </if>
+        </where>
+    </select>
+
+</mapper>

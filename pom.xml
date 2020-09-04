@@ -28,8 +28,15 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
+            <!--	<scope>provided</scope>-->
         </dependency>
+
+         <dependency>
+		     <groupId>javax.servlet</groupId>
+		     <artifactId>javax.servlet-api</artifactId>
+		     <version>3.1.0</version>
+	      </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -152,6 +159,13 @@
             <version>1.1.1</version>
         </dependency>
         <!--        java8以上缺少的jar包-->
+
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
 
     </dependencies>
 

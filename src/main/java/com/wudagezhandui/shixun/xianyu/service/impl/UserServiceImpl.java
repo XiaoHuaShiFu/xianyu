@@ -3,12 +3,16 @@ package com.wudagezhandui.shixun.xianyu.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.gson.Gson;
+import com.wudagezhandui.shixun.xianyu.constant.UserNoticeType;
 import com.wudagezhandui.shixun.xianyu.dao.UserMapper;
 import com.wudagezhandui.shixun.xianyu.pojo.do0.UserDO;
+import com.wudagezhandui.shixun.xianyu.pojo.do0.UserNoticeDO;
 import com.wudagezhandui.shixun.xianyu.pojo.query.UserQuery;
 import com.wudagezhandui.shixun.xianyu.result.ErrorCode;
 import com.wudagezhandui.shixun.xianyu.result.Result;
 import com.wudagezhandui.shixun.xianyu.service.FileService;
+import com.wudagezhandui.shixun.xianyu.service.UserNoticeService;
 import com.wudagezhandui.shixun.xianyu.service.UserService;
 import com.wudagezhandui.shixun.xianyu.service.constant.UserConstant;
 import com.wudagezhandui.shixun.xianyu.util.BeanUtils;
@@ -18,6 +22,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 描述:用户服务层
@@ -36,9 +44,15 @@ public class UserServiceImpl implements UserService {
     private final FileService fileService;
 
     @Autowired
-    public UserServiceImpl(UserMapper userMapper, FileService fileService) {
+    private UserNoticeService userNoticeService;
+
+    private final Gson gson;
+
+    @Autowired
+    public UserServiceImpl(UserMapper userMapper, FileService fileService, Gson gson) {
         this.userMapper = userMapper;
         this.fileService = fileService;
+        this.gson = gson;
     }
 
     /**
@@ -78,6 +92,18 @@ public class UserServiceImpl implements UserService {
             logger.error("Insert user fail.");
             return Result.fail(ErrorCode.INTERNAL_ERROR, "Insert user fail.");
         }
+
+        // 通知用户
+        UserNoticeDO newNotice = new UserNoticeDO();
+        newNotice.setUserId(userDO.getId());
+        newNotice.setType(UserNoticeType.NOTICE);
+        newNotice.setTitle("欢迎加入贤鱼~");
+        newNotice.setContent("请进入我的页面修改个人信息！");
+        newNotice.setNoticeTime(new Date());
+        Map<String, Object> keyValue = new HashMap<>();
+        keyValue.put("toPage", "/user/info");
+        newNotice.setKeyValue(gson.toJson(keyValue));
+        userNoticeService.saveUserNotice(newNotice);
 
         return getUser(userDO.getId());
     }

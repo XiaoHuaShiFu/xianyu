@@ -1,11 +1,17 @@
 package com.wudagezhandui.shixun.xianyu.service.impl;
 
+import com.google.gson.Gson;
+import com.wudagezhandui.shixun.xianyu.constant.UserNoticeType;
 import com.wudagezhandui.shixun.xianyu.dao.OrderMapper;
+import com.wudagezhandui.shixun.xianyu.pojo.do0.IdleDO;
 import com.wudagezhandui.shixun.xianyu.pojo.do0.OrderDO;
+import com.wudagezhandui.shixun.xianyu.pojo.do0.UserNoticeDO;
 import com.wudagezhandui.shixun.xianyu.pojo.modules.TheStatus;
 import com.wudagezhandui.shixun.xianyu.result.ErrorCode;
 import com.wudagezhandui.shixun.xianyu.result.Result;
+import com.wudagezhandui.shixun.xianyu.service.IdleService;
 import com.wudagezhandui.shixun.xianyu.service.OrderService;
+import com.wudagezhandui.shixun.xianyu.service.UserNoticeService;
 import com.wudagezhandui.shixun.xianyu.util.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service("OrderService")
 public class OrderServiceImpl implements OrderService {
@@ -22,10 +30,20 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderMapper mapper;
 
+    private final UserNoticeService userNoticeService;
+
+    private final IdleService idleService;
+
+    private final Gson gson;
+
     @Autowired
-    public OrderServiceImpl(OrderMapper mapper) {
+    public OrderServiceImpl(OrderMapper mapper, UserNoticeService userNoticeService, IdleService idleService,
+                            Gson gson) {
         this.mapper = mapper;
 
+        this.userNoticeService = userNoticeService;
+        this.idleService = idleService;
+        this.gson = gson;
     }
 
 
@@ -55,6 +73,29 @@ public class OrderServiceImpl implements OrderService {
             logger.error("Insert order fail.");
             return Result.fail(ErrorCode.INTERNAL_ERROR, "Insert order fail.");
         }
+
+        IdleDO idleDO = idleService.getIdle(order.getIdleId().intValue()).getData();
+        // 通知买家卖家订单创建成功
+        UserNoticeDO buyerNotice = new UserNoticeDO();
+        buyerNotice.setUserId(order.getBuyerId().intValue());
+        buyerNotice.setType(UserNoticeType.IDLE_BUY);
+        buyerNotice.setTitle("已成功下单");
+        buyerNotice.setContent("您购买的闲置：" + idleDO.getTitle() + "的订单已经创建成功，点击查看订单详情。");
+        buyerNotice.setNoticeTime(new Date());
+        Map<String, Object> keyValue = new HashMap<>();
+        keyValue.put("orderId", order.getIdleId());
+        buyerNotice.setKeyValue(gson.toJson(keyValue));
+        userNoticeService.saveUserNotice(buyerNotice);
+
+        UserNoticeDO sellerNotice = new UserNoticeDO();
+        sellerNotice.setUserId(order.getSellerId().intValue());
+        sellerNotice.setType(UserNoticeType.IDLE_SELL);
+        sellerNotice.setTitle("闲置已经成功卖出");
+        sellerNotice.setContent("您上架的闲置：" + idleDO.getTitle() + "的订单已经创建成功，点击查看订单详情。");
+        sellerNotice.setNoticeTime(new Date());
+        sellerNotice.setKeyValue(gson.toJson(keyValue));
+        userNoticeService.saveUserNotice(sellerNotice);
+
 
         return selectByPrimaryKey(order.getId());
     }

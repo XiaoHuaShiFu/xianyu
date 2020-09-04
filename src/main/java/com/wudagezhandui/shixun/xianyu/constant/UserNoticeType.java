@@ -9,12 +9,12 @@ package com.wudagezhandui.shixun.xianyu.constant;
 public enum UserNoticeType {
 
     /**
-     * 分享评论
+     * 评论
      */
     IDLE_COMMENT,
 
     /**
-     * 分享评论的回复
+     * 评论的回复
      */
     IDLE_COMMENT_REPLY,
 

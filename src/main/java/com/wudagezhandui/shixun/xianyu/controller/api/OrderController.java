@@ -34,24 +34,22 @@ public class OrderController {
     private final OrderService orderService;
     private final IdleService idleService;
     private final UserService userService;
+
     @Autowired
-    public OrderController(Mapper mapper, OrderService orderService,IdleService idleService,UserService userService) {
+    public OrderController(Mapper mapper, OrderService orderService, IdleService idleService, UserService userService) {
         this.mapper = mapper;
         this.orderService = orderService;
-        this.userService=userService;
-        this.idleService=idleService;
+        this.userService = userService;
+        this.idleService = idleService;
     }
 
     /**
      * 创建order并返回order
+     *
      * @param orderDO 用户信息
      * @return orderVO
-     *
-     * @success:
-     * HttpStatus.CREATED
-     *
-     * @bindErrors
-     * INVALID_PARAMETER
+     * @success: HttpStatus.CREATED
+     * @bindErrors INVALID_PARAMETER
      * INVALID_PARAMETER_IS_NULL
      * INVALID_PARAMETER_IS_BLANK
      * INVALID_PARAMETER_SIZE
@@ -61,30 +59,29 @@ public class OrderController {
     @ResponseStatus(value = HttpStatus.CREATED)
     @ErrorHandler
     public Object post(@Validated(GroupPost.class) @RequestBody OrderDO orderDO) {
-
         Result<UserDO> buyerResult = userService.getUser(orderDO.getBuyerId().intValue());
-        if(!buyerResult.isSuccess()){
+        if (!buyerResult.isSuccess()) {
             return Result.fail(buyerResult);
         }
-        UserDO buyerDO=buyerResult.getData();
-        UserVO buyerVO=mapper.map(buyerDO,UserVO.class);
+        UserDO buyerDO = buyerResult.getData();
+        UserVO buyerVO = mapper.map(buyerDO, UserVO.class);
 
         Result<UserDO> sellerResult = userService.getUser(orderDO.getSellerId().intValue());
-        if(!sellerResult.isSuccess()){
+        if (!sellerResult.isSuccess()) {
             return Result.fail(sellerResult);
         }
-        UserDO sellerDO=sellerResult.getData();
-        UserVO sellerVO=mapper.map(sellerDO,UserVO.class);
+        UserDO sellerDO = sellerResult.getData();
+        UserVO sellerVO = mapper.map(sellerDO, UserVO.class);
 
         Result<IdleDO> idleResult = idleService.getIdle(orderDO.getIdleId().intValue());
-        if(!idleResult.isSuccess()){
+        if (!idleResult.isSuccess()) {
             return Result.fail(idleResult);
         }
-        IdleDO idleDO=idleResult.getData();
-        IdleVO idleVO=mapper.map(idleDO,IdleVO.class);
+        IdleDO idleDO = idleResult.getData();
+        IdleVO idleVO = mapper.map(idleDO, IdleVO.class);
 
         Result<OrderDO> result = orderService.insert(orderDO);
-        OrderVO orderVO=mapper.map(orderDO,OrderVO.class);
+        OrderVO orderVO = mapper.map(result.getData(), OrderVO.class);
         orderVO.setSeller(sellerVO);
         orderVO.setBuyer(buyerVO);
         orderVO.setIdle(idleVO);
@@ -93,51 +90,46 @@ public class OrderController {
 
     /**
      * 获取order
+     *
      * @param id 订单编号
      * @return OrderVO
-     *
-     * @success:
-     * HttpStatus.OK
-     *
-     * @errors:
-     * FORBIDDEN_SUB_USER
-     *
-     * @bindErrors
-     * INVALID_PARAMETER_VALUE_BELOW: The name of id below, min: 0.
+     * @success: HttpStatus.OK
+     * @errors: FORBIDDEN_SUB_USER
+     * @bindErrors INVALID_PARAMETER_VALUE_BELOW: The name of id below, min: 0.
      */
-    @RequestMapping(value="/OrderID/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/OrderID/{id}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @TokenAuth(tokenType = TokenType.USER)
     @ErrorHandler
     public Object get(@PathVariable @Id Integer id) {
         Result<OrderDO> result = orderService.selectByPrimaryKey(id.longValue());
-        if(!result.isSuccess()){
+        if (!result.isSuccess()) {
             return Result.fail(result);
         }
-        OrderDO orderDO=result.getData();
+        OrderDO orderDO = result.getData();
         //组装部分
         Result<UserDO> buyerResult = userService.getUser(orderDO.getBuyerId().intValue());
-        if(!buyerResult.isSuccess()){
+        if (!buyerResult.isSuccess()) {
             return Result.fail(buyerResult);
         }
-        UserDO buyerDO=buyerResult.getData();
-        UserVO buyerVO=mapper.map(buyerDO,UserVO.class);
+        UserDO buyerDO = buyerResult.getData();
+        UserVO buyerVO = mapper.map(buyerDO, UserVO.class);
 
         Result<UserDO> sellerResult = userService.getUser(orderDO.getSellerId().intValue());
-        if(!sellerResult.isSuccess()){
+        if (!sellerResult.isSuccess()) {
             return Result.fail(sellerResult);
         }
-        UserDO sellerDO=sellerResult.getData();
-        UserVO sellerVO=mapper.map(sellerDO,UserVO.class);
+        UserDO sellerDO = sellerResult.getData();
+        UserVO sellerVO = mapper.map(sellerDO, UserVO.class);
 
         Result<IdleDO> idleResult = idleService.getIdle(orderDO.getIdleId().intValue());
-        if(!idleResult.isSuccess()){
+        if (!idleResult.isSuccess()) {
             return Result.fail(idleResult);
         }
-        IdleDO idleDO=idleResult.getData();
-        IdleVO idleVO=mapper.map(idleDO,IdleVO.class);
+        IdleDO idleDO = idleResult.getData();
+        IdleVO idleVO = mapper.map(idleDO, IdleVO.class);
         //组装
-        OrderVO orderVO=mapper.map(orderDO,OrderVO.class);
+        OrderVO orderVO = mapper.map(orderDO, OrderVO.class);
         orderVO.setSeller(sellerVO);
         orderVO.setBuyer(buyerVO);
         orderVO.setIdle(idleVO);
@@ -146,27 +138,25 @@ public class OrderController {
 
     /**
      * 获取卖家order
+     *
      * @param id 卖家号
      * @return List<OrderVO>
-     *
-     * @success:
-     * HttpStatus.OK
-     *
-     * @errors:
-     * FORBIDDEN_SUB_USER
-     *
-     * @bindErrors
-     * INVALID_PARAMETER_VALUE_BELOW: The name of id below, min: 0.
+     * @success: HttpStatus.OK
+     * @errors: FORBIDDEN_SUB_USER
+     * @bindErrors INVALID_PARAMETER_VALUE_BELOW: The name of id below, min: 0.
      */
-    @RequestMapping(value="/SellerID/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/SellerID/{id}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @TokenAuth(tokenType = TokenType.USER)
     @ErrorHandler
     public Object getSeller(@PathVariable @Id Integer id) {
         Result<List<OrderDO>> result = orderService.selectBySellerId(id.longValue());
-        List<OrderDO> orderDOList=result.getData();
-        List<OrderVO> orderVOList=new ArrayList<>();
-        for(OrderDO orderDO:orderDOList) {
+        if (!result.isSuccess()) {
+            return result;
+        }
+        List<OrderDO> orderDOList = result.getData();
+        List<OrderVO> orderVOList = new ArrayList<>();
+        for (OrderDO orderDO : orderDOList) {
             Result<UserDO> buyerResult = userService.getUser(orderDO.getBuyerId().intValue());
             if (!buyerResult.isSuccess()) {
                 return Result.fail(buyerResult);
@@ -188,7 +178,7 @@ public class OrderController {
             IdleDO idleDO = idleResult.getData();
             IdleVO idleVO = mapper.map(idleDO, IdleVO.class);
 
-            OrderVO orderVO=mapper.map(orderDO,OrderVO.class);
+            OrderVO orderVO = mapper.map(orderDO, OrderVO.class);
             orderVO.setSeller(sellerVO);
             orderVO.setBuyer(buyerVO);
             orderVO.setIdle(idleVO);
@@ -200,27 +190,25 @@ public class OrderController {
 
     /**
      * 获取买家order
+     *
      * @param id 买家号
      * @return List<OrderVO>
-     *
-     * @success:
-     * HttpStatus.OK
-     *
-     * @errors:
-     * FORBIDDEN_SUB_USER
-     *
-     * @bindErrors
-     * INVALID_PARAMETER_VALUE_BELOW: The name of id below, min: 0.
+     * @success: HttpStatus.OK
+     * @errors: FORBIDDEN_SUB_USER
+     * @bindErrors INVALID_PARAMETER_VALUE_BELOW: The name of id below, min: 0.
      */
-    @RequestMapping(value="/BuyerID/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/BuyerID/{id}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @TokenAuth(tokenType = TokenType.USER)
     @ErrorHandler
     public Object getBuyer(@PathVariable @Id Integer id) {
         Result<List<OrderDO>> result = orderService.selectByBuyerId(id.longValue());
-        List<OrderDO> orderDOList=result.getData();
-        List<OrderVO> orderVOList=new ArrayList<>();
-        for(OrderDO orderDO:orderDOList) {
+        if (!result.isSuccess()) {
+            return result;
+        }
+        List<OrderDO> orderDOList = result.getData();
+        List<OrderVO> orderVOList = new ArrayList<>();
+        for (OrderDO orderDO : orderDOList) {
             Result<UserDO> buyerResult = userService.getUser(orderDO.getBuyerId().intValue());
             if (!buyerResult.isSuccess()) {
                 return Result.fail(buyerResult);
@@ -242,7 +230,7 @@ public class OrderController {
             IdleDO idleDO = idleResult.getData();
             IdleVO idleVO = mapper.map(idleDO, IdleVO.class);
 
-            OrderVO orderVO=mapper.map(orderDO,OrderVO.class);
+            OrderVO orderVO = mapper.map(orderDO, OrderVO.class);
             orderVO.setSeller(sellerVO);
             orderVO.setBuyer(buyerVO);
             orderVO.setIdle(idleVO);
@@ -252,25 +240,14 @@ public class OrderController {
     }
 
 
-
-
-
-
-
-
-
     /**
      * 更新Order并返回Order
+     *
      * @param orderDO orderDO信息
      * @return OrderVO
-     *
-     * @success:
-     * HttpStatus.OK
-     *
+     * @success: HttpStatus.OK
      * @errors:
-     *
-     * @bindErrors
-     * INVALID_PARAMETER
+     * @bindErrors INVALID_PARAMETER
      * INVALID_PARAMETER_IS_NULL
      * INVALID_PARAMETER_IS_BLANK
      * INVALID_PARAMETER_SIZE
@@ -280,30 +257,32 @@ public class OrderController {
     @ResponseStatus(value = HttpStatus.OK)
     @TokenAuth(tokenType = TokenType.USER)
     @ErrorHandler
-    public Object put( @Validated(Group.class) OrderDO orderDO) {
+    public Object put(@Validated(Group.class) @RequestBody OrderDO orderDO) {
+        Result<OrderDO> result = orderService.updateOrder(orderDO);
+        OrderVO orderVO = mapper.map(result.getData(), OrderVO.class);
+
+        orderDO = result.getData();
         Result<UserDO> buyerResult = userService.getUser(orderDO.getBuyerId().intValue());
-        if(!buyerResult.isSuccess()){
+        if (!buyerResult.isSuccess()) {
             return Result.fail(buyerResult);
         }
-        UserDO buyerDO=buyerResult.getData();
-        UserVO buyerVO=mapper.map(buyerDO,UserVO.class);
+        UserDO buyerDO = buyerResult.getData();
+        UserVO buyerVO = mapper.map(buyerDO, UserVO.class);
 
         Result<UserDO> sellerResult = userService.getUser(orderDO.getSellerId().intValue());
-        if(!sellerResult.isSuccess()){
+        if (!sellerResult.isSuccess()) {
             return Result.fail(sellerResult);
         }
-        UserDO sellerDO=sellerResult.getData();
-        UserVO sellerVO=mapper.map(sellerDO,UserVO.class);
+        UserDO sellerDO = sellerResult.getData();
+        UserVO sellerVO = mapper.map(sellerDO, UserVO.class);
 
         Result<IdleDO> idleResult = idleService.getIdle(orderDO.getIdleId().intValue());
-        if(!idleResult.isSuccess()){
+        if (!idleResult.isSuccess()) {
             return Result.fail(idleResult);
         }
-        IdleDO idleDO=idleResult.getData();
-        IdleVO idleVO=mapper.map(idleDO,IdleVO.class);
-        Result<OrderDO> result = orderService.updateOrder(orderDO);
+        IdleDO idleDO = idleResult.getData();
+        IdleVO idleVO = mapper.map(idleDO, IdleVO.class);
 
-        OrderVO orderVO=mapper.map(orderDO,OrderVO.class);
         orderVO.setSeller(sellerVO);
         orderVO.setBuyer(buyerVO);
         orderVO.setIdle(idleVO);

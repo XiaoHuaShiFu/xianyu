@@ -20,7 +20,26 @@ public class OrderDO {
     private String aliPayNumber;//支付宝支付号
     private Long addressId;//地址
 
+    public OrderDO() {
+    }
 
+    public OrderDO(Long id, Date createTime, Date updateTime, Date transactionTime, Long sellerId, Long buyerId,
+                   Long idleId, BigDecimal freight, BigDecimal actualPay, BigDecimal totalPrice, TheStatus status,
+                   String aliPayNumber, Long addressId) {
+        this.id = id;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+        this.transactionTime = transactionTime;
+        this.sellerId = sellerId;
+        this.buyerId = buyerId;
+        this.idleId = idleId;
+        this.freight = freight;
+        this.actualPay = actualPay;
+        this.totalPrice = totalPrice;
+        this.status = status;
+        this.aliPayNumber = aliPayNumber;
+        this.addressId = addressId;
+    }
 
     public Date getCreateTime() {
         return createTime;
@@ -126,5 +145,22 @@ public class OrderDO {
         this.aliPayNumber = aliPayNumber;
     }
 
-
+    @Override
+    public String toString() {
+        return "OrderDO{" +
+                "id=" + id +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", transactionTime=" + transactionTime +
+                ", sellerId=" + sellerId +
+                ", buyerId=" + buyerId +
+                ", idleId=" + idleId +
+                ", freight=" + freight +
+                ", actualPay=" + actualPay +
+                ", totalPrice=" + totalPrice +
+                ", status=" + status +
+                ", aliPayNumber='" + aliPayNumber + '\'' +
+                ", addressId=" + addressId +
+                '}';
+    }
 }

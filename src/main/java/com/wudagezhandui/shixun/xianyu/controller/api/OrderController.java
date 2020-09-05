@@ -289,4 +289,19 @@ public class OrderController {
         return Result.success(orderVO);
     }
 
+    /**
+     * 对指定账单发起付款
+     * @param orderNo
+     * @return 返回二维码的url
+     */
+    @RequestMapping(value = "/pay.do/{orderNo}", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @TokenAuth(tokenType = TokenType.USER)
+    @ErrorHandler
+    public Object pay(@PathVariable @Id Long orderNo) {
+
+        Result<String> result = orderService.pay(orderNo);
+        return result.isSuccess() ? mapper.map(result.getData(), String.class) : result;
+    }
+
 }

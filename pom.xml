@@ -167,6 +167,77 @@
             <version>4.12</version>
         </dependency>
 
+        <!-- alipay -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.10</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>1.10</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+            <version>1.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>alipay-sdk-java</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>3.3.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/alipay-sdk-java-3.3.0.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>alipay-sdk-java-source</groupId>
+            <artifactId>alipay-sdk-java-source</artifactId>
+            <version>3.3.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/alipay-sdk-java-3.3.0-source.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>alipay-trade-sdk</groupId>
+            <artifactId>alipay-trade-sdk</artifactId>
+            <version>20161215</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/alipay-trade-sdk-20161215.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>alipay-trade-sdk-source</groupId>
+            <artifactId>alipay-trade-sdk-source</artifactId>
+            <version>20161215</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/alipay-trade-sdk-20161215-source.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.12</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wudagezhandui.shixun.xianyu.dao.UserAddressMapper">
+    <sql id="BaseColumnList">
+        id, user_id, address, full_name, phone, create_time, update_time
+    </sql>
+
+    <insert id="insertUserAddress" parameterType="com.wudagezhandui.shixun.xianyu.pojo.do0.UserAddressDO"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into user_address(user_id, address, full_name, phone)
+        values(#{userId}, #{address}, #{fullname}, #{phone})
+    </insert>
+
+    <select id="getUserAddress" parameterType="integer" resultType="com.wudagezhandui.shixun.xianyu.pojo.do0.UserAddressDO">
+        select
+        <include refid="BaseColumnList"/>
+        from user_address
+        where id = #{id}
+    </select>
+
+    <select id="listUserAddresses" parameterType="com.wudagezhandui.shixun.xianyu.pojo.query.UserAddressQuery"
+            resultType="com.wudagezhandui.shixun.xianyu.pojo.do0.UserAddressDO">
+        select
+        <include refid="BaseColumnList"/>
+        from user_address
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="idList != null">
+                id in (
+                    <foreach collection="idList"  item="item" index="index" separator=",">
+                        #{item}
+                    </foreach>
+                )
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="address != null">
+                and address like "%"#{address}"%"
+            </if>
+            <if test="full_name != null">
+                and full_name like "%"#{fullname}"%"
+            </if>
+            <if test="phone != null">
+                and phone like "%"#{phone}"%"
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="count" resultType="java.lang.Integer" parameterType="com.wudagezhandui.shixun.xianyu.pojo.query.UserAddressQuery">
+        select
+        count(*)
+        from user_address
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="idList != null">
+                id in (
+                <foreach collection="idList"  item="item" index="index" separator=",">
+                    #{item}
+                </foreach>
+                )
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="address != null">
+                and address = #{address}
+            </if>
+            <if test="full_name != null">
+                and full_name like "%"#{fullname}"%"
+            </if>
+            <if test="phone != null">
+                and phone like "%"#{phone}"%"
+            </if>
+        </where>
+    </select>
+
+</mapper>

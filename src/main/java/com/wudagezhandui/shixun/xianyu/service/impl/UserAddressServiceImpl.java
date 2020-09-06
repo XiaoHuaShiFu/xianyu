@@ -90,9 +90,6 @@ public class UserAddressServiceImpl implements UserAddressService {
     public Result<PageInfo<UserAddressDO>> listUserAddresses(UserAddressQuery query) {
         PageHelper.startPage(query.getPageNum(), query.getPageSize());
         PageInfo<UserAddressDO> pageInfo = new PageInfo<>(userAddressMapper.listUserAddresses(query));
-        if (pageInfo.getList().size() < 1) {
-            Result.fail(ErrorCode.INVALID_PARAMETER_NOT_FOUND, "Not found.");
-        }
 
         return Result.success(pageInfo);
     }

@@ -41,7 +41,7 @@ public class UserAddressDO {
     @Size(message = "INVALID_PARAMETER_SIZE: The size of fullname must be between 1 to 20.",
             min = 1, max = 20,
             groups = {Group.class})
-    private String fullname;
+    private String fullName;
 
     @NotBlank(message = "INVALID_PARAMETER_IS_BLANK: The phone must be not blank.",
             groups = {GroupPost.class})
@@ -61,12 +61,12 @@ public class UserAddressDO {
     public UserAddressDO() {
     }
 
-    public UserAddressDO(Integer id, Integer userId, String address, String fullname, String phone,
-                        Date createTime, Date updateTime) {
+    public UserAddressDO(Integer id, Integer userId, String address, String fullName, String phone,
+                         Date createTime, Date updateTime) {
         this.id = id;
         this.userId = userId;
         this.address = address;
-        this.fullname = fullname;
+        this.fullName = fullName;
         this.phone = phone;
         this.createTime = createTime;
         this.updateTime = updateTime;
@@ -96,12 +96,12 @@ public class UserAddressDO {
         this.address = address;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getPhone() {
@@ -112,13 +112,29 @@ public class UserAddressDO {
         this.phone = phone;
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
     @Override
     public String toString() {
         return "UserAddressDO{" +
                 "id=" + id +
                 ", userId=" + userId +
                 ", address='" + address + '\'' +
-                ", fullname='" + fullname + '\'' +
+                ", fullName='" + fullName + '\'' +
                 ", phone='" + phone + '\'' +
                 '}';
     }

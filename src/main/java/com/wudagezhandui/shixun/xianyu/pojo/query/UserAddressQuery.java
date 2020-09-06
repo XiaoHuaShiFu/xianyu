@@ -26,7 +26,7 @@ public class UserAddressQuery {
      */
     private String address;
 
-    private String fullname;
+    private String fullName;
 
     private String phone;
 
@@ -39,14 +39,14 @@ public class UserAddressQuery {
     }
 
     public UserAddressQuery(Integer pageNum, Integer pageSize, Integer id, List<Integer> idList, Integer userId,
-                             String address, String fullname, String phone ,Boolean count) {
+                            String address, String fullName, String phone , Boolean count) {
         this.pageNum = pageNum;
         this.pageSize = pageSize;
         this.id = id;
         this.idList = idList;
         this.userId = userId;
         this.address = address;
-        this.fullname = fullname;
+        this.fullName = fullName;
         this.phone = phone;
         this.count = count;
     }
@@ -99,12 +99,12 @@ public class UserAddressQuery {
         this.address = address;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getPhone() {
@@ -132,7 +132,7 @@ public class UserAddressQuery {
                 ", idList=" + idList +
                 ", userId=" + userId +
                 ", address='" + address + '\'' +
-                ", fullname='" + fullname + '\'' +
+                ", fullname='" + fullName + '\'' +
                 ", phone='" + phone + '\'' +
                 ", count=" + count +
                 '}';

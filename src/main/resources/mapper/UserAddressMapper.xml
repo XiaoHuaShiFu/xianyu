@@ -8,7 +8,7 @@
     <insert id="insertUserAddress" parameterType="com.wudagezhandui.shixun.xianyu.pojo.do0.UserAddressDO"
             useGeneratedKeys="true" keyProperty="id">
         insert into user_address(user_id, address, full_name, phone)
-        values(#{userId}, #{address}, #{fullname}, #{phone})
+        values(#{userId}, #{address}, #{fullName}, #{phone})
     </insert>
 
     <select id="getUserAddress" parameterType="integer" resultType="com.wudagezhandui.shixun.xianyu.pojo.do0.UserAddressDO">
@@ -40,8 +40,8 @@
             <if test="address != null">
                 and address like "%"#{address}"%"
             </if>
-            <if test="full_name != null">
-                and full_name like "%"#{fullname}"%"
+            <if test="fullName != null">
+                and full_name like "%"#{fullName}"%"
             </if>
             <if test="phone != null">
                 and phone like "%"#{phone}"%"
@@ -71,8 +71,8 @@
             <if test="address != null">
                 and address = #{address}
             </if>
-            <if test="full_name != null">
-                and full_name like "%"#{fullname}"%"
+            <if test="fullName != null">
+                and full_name like "%"#{fullName}"%"
             </if>
             <if test="phone != null">
                 and phone like "%"#{phone}"%"

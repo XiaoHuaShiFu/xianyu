@@ -25,6 +25,23 @@ public class FileServiceImpl implements FileService {
     }
 
     /**
+     * 上传File文件到ftp服务器
+     * @param file
+     * @param directoryPath
+     * @return boolean 是否上传成功
+     */
+    @Override
+    public boolean save(String directoryPath, File file) {
+        boolean success;
+        try {
+            success = ftpClientTemplate.uploadFile(directoryPath, file);
+        } catch (IOException e) {
+            throw new ProcessingException(ErrorCode.INTERNAL_ERROR, "Upload file failed.");
+        }
+        return success;
+    }
+
+    /**
      * 上传文件到ftp服务器
      *
      * @param file 文件

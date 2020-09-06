@@ -1,29 +1,45 @@
 package com.wudagezhandui.shixun.xianyu.service.impl;
 
+import com.alipay.api.AlipayResponse;
+import com.alipay.api.response.AlipayTradePrecreateResponse;
+import com.alipay.demo.trade.config.Configs;
+import com.alipay.demo.trade.model.ExtendParams;
+import com.alipay.demo.trade.model.GoodsDetail;
+import com.alipay.demo.trade.model.builder.AlipayTradePrecreateRequestBuilder;
+import com.alipay.demo.trade.model.result.AlipayF2FPrecreateResult;
+import com.alipay.demo.trade.service.AlipayTradeService;
+import com.alipay.demo.trade.service.impl.AlipayTradeServiceImpl;
+import com.alipay.demo.trade.utils.ZxingUtils;
 import com.google.gson.Gson;
+import com.wudagezhandui.shixun.xianyu.constant.AlipayConst;
 import com.wudagezhandui.shixun.xianyu.constant.UserNoticeType;
 import com.wudagezhandui.shixun.xianyu.dao.OrderMapper;
 import com.wudagezhandui.shixun.xianyu.pojo.do0.IdleDO;
 import com.wudagezhandui.shixun.xianyu.pojo.do0.OrderDO;
+import com.wudagezhandui.shixun.xianyu.pojo.do0.PaymentDO;
 import com.wudagezhandui.shixun.xianyu.pojo.do0.UserNoticeDO;
 import com.wudagezhandui.shixun.xianyu.pojo.modules.TheStatus;
 import com.wudagezhandui.shixun.xianyu.result.ErrorCode;
 import com.wudagezhandui.shixun.xianyu.result.Result;
+import com.wudagezhandui.shixun.xianyu.service.FileService;
 import com.wudagezhandui.shixun.xianyu.service.IdleService;
 import com.wudagezhandui.shixun.xianyu.service.OrderService;
 import com.wudagezhandui.shixun.xianyu.service.UserNoticeService;
+import com.wudagezhandui.shixun.xianyu.service.constant.FileConstant;
+import com.wudagezhandui.shixun.xianyu.service.constant.PaymentConstant;
 import com.wudagezhandui.shixun.xianyu.util.BeanUtils;
+import com.wudagezhandui.shixun.xianyu.util.DateTimeUtil;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.math.BigDecimal;
+import java.util.*;
 
-@Service("OrderService")
+@Service("orderService")
 public class OrderServiceImpl implements OrderService {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
@@ -38,12 +54,13 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     public OrderServiceImpl(OrderMapper mapper, UserNoticeService userNoticeService, IdleService idleService,
-                            Gson gson) {
+                            Gson gson, FileService fileService) {
         this.mapper = mapper;
 
         this.userNoticeService = userNoticeService;
         this.idleService = idleService;
         this.gson = gson;
+
     }
 
 
@@ -140,6 +157,5 @@ public class OrderServiceImpl implements OrderService {
         }
         return selectByPrimaryKey(order.getId());
     }
-
 
 }

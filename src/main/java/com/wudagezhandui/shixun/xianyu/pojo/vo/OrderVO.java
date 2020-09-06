@@ -16,7 +16,7 @@ public class OrderVO {
     private BigDecimal totalPrice;//总价
     private TheStatus status;//订单状态
     private String aliPayNumber;//支付宝支付号
-    private Long addressId;//地址id
+    private UserAddressVO address;//地址id
 
     public Long getId() {
         return id;
@@ -98,11 +98,11 @@ public class OrderVO {
         this.aliPayNumber = aliPayNumber;
     }
 
-    public Long getAddressId() {
-        return addressId;
+    public UserAddressVO getAddress() {
+        return address;
     }
 
-    public void setAddressId(Long addressId) {
-        this.addressId = addressId;
+    public void setAddress(UserAddressVO address) {
+        this.address = address;
     }
 }

@@ -203,24 +203,28 @@
             <groupId>alipay-sdk-java</groupId>
             <artifactId>alipay-sdk-java</artifactId>
             <version>3.3.0</version>
+            <scope>system</scope>
             <systemPath>${project.basedir}/lib/alipay-sdk-java-3.3.0.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>alipay-sdk-java-source</groupId>
             <artifactId>alipay-sdk-java-source</artifactId>
             <version>3.3.0</version>
+            <scope>system</scope>
             <systemPath>${project.basedir}/lib/alipay-sdk-java-3.3.0-source.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>alipay-trade-sdk</groupId>
             <artifactId>alipay-trade-sdk</artifactId>
             <version>20161215</version>
+            <scope>system</scope>
             <systemPath>${project.basedir}/lib/alipay-trade-sdk-20161215.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>alipay-trade-sdk-source</groupId>
             <artifactId>alipay-trade-sdk-source</artifactId>
             <version>20161215</version>
+            <scope>system</scope>
             <systemPath>${project.basedir}/lib/alipay-trade-sdk-20161215-source.jar</systemPath>
         </dependency>
 

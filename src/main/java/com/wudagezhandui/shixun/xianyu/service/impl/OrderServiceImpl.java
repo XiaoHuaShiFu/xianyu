@@ -36,7 +36,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.util.*;
 
-@Service("OrderService")
+@Service("orderService")
 public class OrderServiceImpl implements OrderService {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);

@@ -16,5 +16,4 @@ public interface OrderService {
 
     Result<OrderDO> updateOrder(OrderDO order);
 
-    Result<String> pay(Long orderNo);
 }

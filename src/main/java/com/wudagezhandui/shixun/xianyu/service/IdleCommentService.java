@@ -13,4 +13,6 @@ public interface IdleCommentService {
 
     Result<PageInfo<IdleCommentDO>> listIdleComments(IdleCommentQuery query);
 
+    Result<IdleCommentDO> increaseComments(IdleCommentDO idleCommentDO);
+
 }

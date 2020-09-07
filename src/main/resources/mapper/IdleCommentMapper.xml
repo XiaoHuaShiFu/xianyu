@@ -71,6 +71,16 @@
         order by update_time desc
     </select>
 
+    <update id="increaseComments" parameterType="com.wudagezhandui.shixun.xianyu.pojo.do0.IdleCommentDO">
+        update idle_comment
+        <set>
+            <if test="comments != null">
+                comments = #{comments},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
 </mapper>
 
 

@@ -30,9 +30,12 @@ public class IdleCommentCommentController {
 
     private final IdleCommentCommentService idleCommentCommentService;
 
+    private final IdleCommentService idleCommentService;
+
     @Autowired
-    public IdleCommentCommentController(Mapper mapper, IdleCommentCommentService idleCommentCommentService) {
+    public IdleCommentCommentController(Mapper mapper, IdleCommentCommentService idleCommentCommentService, IdleCommentService idleCommentService) {
         this.mapper = mapper;
+        this.idleCommentService = idleCommentService;
         this.idleCommentCommentService = idleCommentCommentService;
     }
 
@@ -41,6 +44,7 @@ public class IdleCommentCommentController {
     @ErrorHandler
     public Object post(@Validated(GroupPost.class) @RequestBody IdleCommentCommentDO idleCommentCommentDO) {
         Result<IdleCommentCommentDO> result = idleCommentCommentService.saveIdleCommentComment(idleCommentCommentDO);
+        idleCommentService.increaseComments(idleCommentService.getIdleComment(idleCommentCommentDO.getIdleCommentId()).getData());
         return !result.isSuccess() ? result : mapper.map(result.getData(), IdleCommentCommentVO.class);
     }
 

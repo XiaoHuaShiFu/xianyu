@@ -79,4 +79,12 @@ public class IdleCommentServiceImpl implements IdleCommentService {
         return Result.success(pageInfo);
     }
 
+    @Override
+    public Result<IdleCommentDO> increaseComments(IdleCommentDO idleCommentDO) {
+        idleCommentDO.setComments(idleCommentDO.getComments() + 1);
+
+        idleCommentMapper.increaseComments(idleCommentDO);
+        return Result.success(idleCommentDO);
+    }
+
 }

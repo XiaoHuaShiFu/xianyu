@@ -29,5 +29,14 @@ public interface IdleCommentMapper {
      */
     List<IdleCommentDO> listIdleComments(IdleCommentQuery query);
 
+    /*
+     * 增加comments
+     * @param id
+     * @return comments
+     */
+    int increaseComments(IdleCommentDO idleCommentDO);
+
+
+
 
 }

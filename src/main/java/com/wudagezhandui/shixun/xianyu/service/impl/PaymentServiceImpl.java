@@ -24,6 +24,7 @@ import com.wudagezhandui.shixun.xianyu.service.PaymentService;
 import com.wudagezhandui.shixun.xianyu.service.constant.FileConstant;
 import com.wudagezhandui.shixun.xianyu.service.constant.PaymentConstant;
 import com.wudagezhandui.shixun.xianyu.util.DateTimeUtil;
+import com.wudagezhandui.shixun.xianyu.util.PropertiesUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -126,7 +127,7 @@ public class PaymentServiceImpl implements PaymentService {
                 .setUndiscountableAmount(undiscountableAmount).setSellerId(sellerId).setBody(body)
                 .setOperatorId(operatorId).setStoreId(storeId).setExtendParams(extendParams)
                 .setTimeoutExpress(timeoutExpress)
-                .setNotifyUrl("https://xiaohuashifu.top/v1/payments/alipay_callback.do")//支付宝服务器主动通知商户服务器里指定的页面http路径,根据需要设置
+                .setNotifyUrl(PropertiesUtils.getProperty("alipay_callback_address", "zfbinfo.properties"))
                 .setGoodsDetailList(goodsDetailList);
 
         AlipayF2FPrecreateResult result = tradeService.tradePrecreate(builder);

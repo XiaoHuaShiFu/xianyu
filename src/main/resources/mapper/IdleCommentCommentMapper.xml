@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.wudagezhandui.shixun.xianyu.dao.IdleCommentMapper">
+<mapper namespace="com.wudagezhandui.shixun.xianyu.dao.IdleCommentCommentMapper">
     <sql id="Base_Column_List">
-        id, user_id, idle_id, content, comments, create_time, update_time
+        id, user_id, idle_comment_id, parent_idle_comment_comment_id, content, create_time, update_time
     </sql>
 
-    <insert id="saveIdleComment" parameterType="com.wudagezhandui.shixun.xianyu.pojo.do0.IdleCommentDO"
+    <insert id="saveIdleCommentComment" parameterType="com.wudagezhandui.shixun.xianyu.pojo.do0.IdleCommentCommentDO"
             useGeneratedKeys="true" keyProperty="id">
-        insert into idle_comment
+        insert into idle_comment_comment
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="userId != null" >
                 user_id,
             </if>
-            <if test="idleId != null" >
-                idle_id,
+            <if test="idleCommentId != null" >
+                idle_comment_id,
+            </if>
+            <if test="idleCommentCommentId != null" >
+                parent_idle_comment_comment_id,
             </if>
             <if test="content != null" >
                 content,
-            </if>
-            <if test="comments != null" >
-                comments
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="userId != null" >
                 #{userId},
             </if>
-            <if test="idleId != null" >
-                #{idleId},
+            <if test="idleCommentId != null" >
+                #{idleCommentId},
+            </if>
+            <if test="idleCommentCommentId != null" >
+                #{idleCommentCommentId},
             </if>
             <if test="content != null" >
                 #{content},
             </if>
-            <if test="comments != null" >
-                #{comments}
-            </if>
         </trim>
     </insert>
 
-    <select id="getIdleComment" parameterType="integer" resultType="com.wudagezhandui.shixun.xianyu.pojo.do0.IdleCommentDO">
+    <select id="getIdleCommentComment" parameterType="integer" resultType="com.wudagezhandui.shixun.xianyu.pojo.do0.IdleCommentCommentDO">
         select
         <include refid="Base_Column_List"/>
-        from idle_comment
+        from idle_comment_comment
         where id = #{id}
     </select>
 
-    <select id="listIdleComments" parameterType="com.wudagezhandui.shixun.xianyu.pojo.query.IdleCommentQuery"
-            resultType="com.wudagezhandui.shixun.xianyu.pojo.do0.IdleCommentDO">
+    <select id="listIdleCommentComments" parameterType="com.wudagezhandui.shixun.xianyu.pojo.query.IdleCommentCommentQuery"
+            resultType="com.wudagezhandui.shixun.xianyu.pojo.do0.IdleCommentCommentDO">
         select
         <include refid="Base_Column_List"/>
-        from idle_comment
+        from idle_comment_comment
         <where>
             <if test="id != null">
                 and id = #{id}
@@ -57,8 +57,8 @@
             <if test="userId != null">
                 and user_id = #{userId}
             </if>
-            <if test="idleId != null">
-                and user_id = #{idleId}
+            <if test="idleCommentId != null">
+                and idle_comment_id = #{idleCommentId}
             </if>
             <if test="idList != null">
                 and id in (

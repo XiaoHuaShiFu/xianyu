@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 @Service("idleCommentService")
-public class IdleCommentServiceimpl implements IdleCommentService {
+public class IdleCommentServiceImpl implements IdleCommentService {
 
     private final IdleCommentMapper idleCommentMapper;
 
@@ -24,7 +24,7 @@ public class IdleCommentServiceimpl implements IdleCommentService {
     private final IdleService idleService;
 
     @Autowired
-    public IdleCommentServiceimpl(IdleCommentMapper idleCommentMapper, IdleService idleService){
+    public IdleCommentServiceImpl(IdleCommentMapper idleCommentMapper, IdleService idleService){
         this.idleCommentMapper = idleCommentMapper;
         this.idleService = idleService;
     }
@@ -32,7 +32,7 @@ public class IdleCommentServiceimpl implements IdleCommentService {
     @Override
     public Result<IdleCommentDO> saveIdleComment(IdleCommentDO idleCommentDO) {
         //判断商品是否存在
-        Result<IdleDO> getIdleResult =idleService.getIdle(idleCommentDO.getId());
+        Result<IdleDO> getIdleResult =idleService.getIdle(idleCommentDO.getIdleId());
         if(!getIdleResult.isSuccess()) {
             return Result.fail(ErrorCode.INVALID_PARAMETER_NOT_FOUND,
                     "The idle of id={0} not exists.", idleCommentDO.getId());

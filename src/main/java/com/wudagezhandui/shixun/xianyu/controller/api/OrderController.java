@@ -5,15 +5,18 @@ import com.wudagezhandui.shixun.xianyu.auth.TokenAuth;
 import com.wudagezhandui.shixun.xianyu.constant.TokenType;
 import com.wudagezhandui.shixun.xianyu.pojo.do0.IdleDO;
 import com.wudagezhandui.shixun.xianyu.pojo.do0.OrderDO;
+import com.wudagezhandui.shixun.xianyu.pojo.do0.UserAddressDO;
 import com.wudagezhandui.shixun.xianyu.pojo.do0.UserDO;
 import com.wudagezhandui.shixun.xianyu.pojo.group.Group;
 import com.wudagezhandui.shixun.xianyu.pojo.group.GroupPost;
 import com.wudagezhandui.shixun.xianyu.pojo.vo.IdleVO;
 import com.wudagezhandui.shixun.xianyu.pojo.vo.OrderVO;
+import com.wudagezhandui.shixun.xianyu.pojo.vo.UserAddressVO;
 import com.wudagezhandui.shixun.xianyu.pojo.vo.UserVO;
 import com.wudagezhandui.shixun.xianyu.result.Result;
 import com.wudagezhandui.shixun.xianyu.service.IdleService;
 import com.wudagezhandui.shixun.xianyu.service.OrderService;
+import com.wudagezhandui.shixun.xianyu.service.UserAddressService;
 import com.wudagezhandui.shixun.xianyu.service.UserService;
 import com.wudagezhandui.shixun.xianyu.validator.annotation.Id;
 import org.springframework.http.HttpStatus;
@@ -34,13 +37,14 @@ public class OrderController {
     private final OrderService orderService;
     private final IdleService idleService;
     private final UserService userService;
-
+    private final UserAddressService addressService;
     @Autowired
-    public OrderController(Mapper mapper, OrderService orderService, IdleService idleService, UserService userService) {
+    public OrderController(Mapper mapper, OrderService orderService, IdleService idleService, UserService userService,UserAddressService addressService) {
         this.mapper = mapper;
         this.orderService = orderService;
         this.userService = userService;
         this.idleService = idleService;
+        this.addressService=addressService;
     }
 
     /**
@@ -80,11 +84,19 @@ public class OrderController {
         IdleDO idleDO = idleResult.getData();
         IdleVO idleVO = mapper.map(idleDO, IdleVO.class);
 
+        Result<UserAddressDO> addressResult = addressService.getUserAddress(orderDO.getAddressId().intValue());
+        if (!addressResult.isSuccess()) {
+            return Result.fail(addressResult);
+        }
+        UserAddressDO addressDO = addressResult.getData();
+        UserAddressVO addressVO = mapper.map(addressDO, UserAddressVO.class);
+
         Result<OrderDO> result = orderService.insert(orderDO);
         OrderVO orderVO = mapper.map(result.getData(), OrderVO.class);
         orderVO.setSeller(sellerVO);
         orderVO.setBuyer(buyerVO);
         orderVO.setIdle(idleVO);
+        orderVO.setAddress(addressVO);
         return Result.success(orderVO);
     }
 
@@ -128,11 +140,19 @@ public class OrderController {
         }
         IdleDO idleDO = idleResult.getData();
         IdleVO idleVO = mapper.map(idleDO, IdleVO.class);
+
+        Result<UserAddressDO> addressResult = addressService.getUserAddress(orderDO.getAddressId().intValue());
+        if (!addressResult.isSuccess()) {
+            return Result.fail(addressResult);
+        }
+        UserAddressDO addressDO = addressResult.getData();
+        UserAddressVO addressVO = mapper.map(addressDO, UserAddressVO.class);
         //组装
         OrderVO orderVO = mapper.map(orderDO, OrderVO.class);
         orderVO.setSeller(sellerVO);
         orderVO.setBuyer(buyerVO);
         orderVO.setIdle(idleVO);
+        orderVO.setAddress(addressVO);
         return Result.success(orderVO);
     }
 
@@ -178,10 +198,18 @@ public class OrderController {
             IdleDO idleDO = idleResult.getData();
             IdleVO idleVO = mapper.map(idleDO, IdleVO.class);
 
+            Result<UserAddressDO> addressResult = addressService.getUserAddress(orderDO.getAddressId().intValue());
+            if (!addressResult.isSuccess()) {
+                return Result.fail(addressResult);
+            }
+            UserAddressDO addressDO = addressResult.getData();
+            UserAddressVO addressVO = mapper.map(addressDO, UserAddressVO.class);
+
             OrderVO orderVO = mapper.map(orderDO, OrderVO.class);
             orderVO.setSeller(sellerVO);
             orderVO.setBuyer(buyerVO);
             orderVO.setIdle(idleVO);
+            orderVO.setAddress(addressVO);
             orderVOList.add(orderVO);
         }
         return Result.success(orderVOList);
@@ -230,10 +258,18 @@ public class OrderController {
             IdleDO idleDO = idleResult.getData();
             IdleVO idleVO = mapper.map(idleDO, IdleVO.class);
 
+            Result<UserAddressDO> addressResult = addressService.getUserAddress(orderDO.getAddressId().intValue());
+            if (!addressResult.isSuccess()) {
+                return Result.fail(addressResult);
+            }
+            UserAddressDO addressDO = addressResult.getData();
+            UserAddressVO addressVO = mapper.map(addressDO, UserAddressVO.class);
+
             OrderVO orderVO = mapper.map(orderDO, OrderVO.class);
             orderVO.setSeller(sellerVO);
             orderVO.setBuyer(buyerVO);
             orderVO.setIdle(idleVO);
+            orderVO.setAddress(addressVO);
             orderVOList.add(orderVO);
         }
         return Result.success(orderVOList);
@@ -283,9 +319,17 @@ public class OrderController {
         IdleDO idleDO = idleResult.getData();
         IdleVO idleVO = mapper.map(idleDO, IdleVO.class);
 
+        Result<UserAddressDO> addressResult = addressService.getUserAddress(orderDO.getAddressId().intValue());
+        if (!addressResult.isSuccess()) {
+            return Result.fail(addressResult);
+        }
+        UserAddressDO addressDO = addressResult.getData();
+        UserAddressVO addressVO = mapper.map(addressDO, UserAddressVO.class);
+
         orderVO.setSeller(sellerVO);
         orderVO.setBuyer(buyerVO);
         orderVO.setIdle(idleVO);
+        orderVO.setAddress(addressVO);
         return Result.success(orderVO);
     }
 

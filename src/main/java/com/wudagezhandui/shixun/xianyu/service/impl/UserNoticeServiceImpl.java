@@ -28,12 +28,12 @@ public class UserNoticeServiceImpl implements UserNoticeService {
 
     private final UserNoticeMapper userNoticeMapper;
 
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
     @Autowired
-    public UserNoticeServiceImpl(UserNoticeMapper userNoticeMapper, UserService userService) {
+    public UserNoticeServiceImpl(UserNoticeMapper userNoticeMapper) {
         this.userNoticeMapper = userNoticeMapper;
-        this.userService = userService;
     }
 
     /**

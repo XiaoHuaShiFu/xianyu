@@ -7,35 +7,8 @@
 
     <insert id="saveIdleComment" parameterType="com.wudagezhandui.shixun.xianyu.pojo.do0.IdleCommentDO"
             useGeneratedKeys="true" keyProperty="id">
-        insert into idle_comment
-        <trim prefix="(" suffix=")" suffixOverrides="," >
-            <if test="userId != null" >
-                user_id,
-            </if>
-            <if test="idleId != null" >
-                idle_id,
-            </if>
-            <if test="content != null" >
-                content,
-            </if>
-            <if test="comments != null" >
-                comments
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides="," >
-            <if test="userId != null" >
-                #{userId},
-            </if>
-            <if test="idleId != null" >
-                #{idleId},
-            </if>
-            <if test="content != null" >
-                #{content},
-            </if>
-            <if test="comments != null" >
-                #{comments}
-            </if>
-        </trim>
+        insert into idle_comment(user_id, idle_id, content)
+        values(#{userId}, #{idleId}, #{content})
     </insert>
 
     <select id="getIdleComment" parameterType="integer" resultType="com.wudagezhandui.shixun.xianyu.pojo.do0.IdleCommentDO">
@@ -58,7 +31,7 @@
                 and user_id = #{userId}
             </if>
             <if test="idleId != null">
-                and user_id = #{idleId}
+                and idle_id = #{idleId}
             </if>
             <if test="idList != null">
                 and id in (
@@ -71,13 +44,9 @@
         order by update_time desc
     </select>
 
-    <update id="increaseComments" parameterType="com.wudagezhandui.shixun.xianyu.pojo.do0.IdleCommentDO">
+    <update id="increaseComments" parameterType="integer">
         update idle_comment
-        <set>
-            <if test="comments != null">
-                comments = #{comments},
-            </if>
-        </set>
+        set comments = comments + 1
         where id = #{id}
     </update>
 

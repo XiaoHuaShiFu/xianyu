@@ -7,9 +7,11 @@ public class IdleCommentCommentVO {
 
     private Integer userId;
 
+    private UserVO user;
+
     private Integer idleCommentId;
 
-    private Integer idleCommentCommentId;
+    private Integer parentIdleCommentCommentId;
 
     private String content;
 
@@ -20,11 +22,13 @@ public class IdleCommentCommentVO {
     public IdleCommentCommentVO() {
     }
 
-    public IdleCommentCommentVO(Integer id, Integer userId, Integer idleCommentId, Integer idleCommentCommentId, String content, Date createTime, Date updateTime) {
+    public IdleCommentCommentVO(Integer id, Integer userId, UserVO user, Integer idleCommentId,
+                                Integer parentIdleCommentCommentId, String content, Date createTime, Date updateTime) {
         this.id = id;
         this.userId = userId;
+        this.user = user;
         this.idleCommentId = idleCommentId;
-        this.idleCommentCommentId = idleCommentCommentId;
+        this.parentIdleCommentCommentId = parentIdleCommentCommentId;
         this.content = content;
         this.createTime = createTime;
         this.updateTime = updateTime;
@@ -38,13 +42,21 @@ public class IdleCommentCommentVO {
 
     public void setUserId(Integer userId) { this.userId = userId; }
 
+    public UserVO getUser() {
+        return user;
+    }
+
+    public void setUser(UserVO user) {
+        this.user = user;
+    }
+
     public Integer getIdleCommentId() { return this.idleCommentId; }
 
     public void setIdleCommentId(Integer idleCommentId) { this.idleCommentId = idleCommentId; }
 
-    public Integer getIdleCommentCommentId() { return this.idleCommentCommentId; }
+    public Integer getParentIdleCommentCommentId() { return this.parentIdleCommentCommentId; }
 
-    public void setIdleCommentCommentId(Integer idleCommentCommentId) { this.idleCommentCommentId = idleCommentCommentId; }
+    public void setParentIdleCommentCommentId(Integer parentIdleCommentCommentId) { this.parentIdleCommentCommentId = parentIdleCommentCommentId; }
 
     public String getContent() { return this.content; }
 
@@ -60,15 +72,15 @@ public class IdleCommentCommentVO {
 
     @Override
     public String toString() {
-        return "idleCommentDO{" +
-                "id = " + id +
-                ", userId = '" + userId + '\'' +
-                ", idleCommentId = '" + idleCommentId + '\'' +
-                ", idleCommentCommentId = '" + idleCommentCommentId + '\'' +
-                ", content = '" + content + '\'' +
-                ", createTime = " + createTime +
-                ", updateTime = " + updateTime +
+        return "IdleCommentCommentVO{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", user=" + user +
+                ", idleCommentId=" + idleCommentId +
+                ", parentIdleCommentCommentId=" + parentIdleCommentCommentId +
+                ", content='" + content + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
-
     }
 }

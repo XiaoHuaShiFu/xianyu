@@ -13,8 +13,6 @@ import com.wudagezhandui.shixun.xianyu.service.IdleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-
 @Service("idleCommentService")
 public class IdleCommentServiceImpl implements IdleCommentService {
 
@@ -31,17 +29,16 @@ public class IdleCommentServiceImpl implements IdleCommentService {
 
     @Override
     public Result<IdleCommentDO> saveIdleComment(IdleCommentDO idleCommentDO) {
-        //判断商品是否存在
-        Result<IdleDO> getIdleResult =idleService.getIdle(idleCommentDO.getIdleId());
+        // 判断商品是否存在
+        Result<IdleDO> getIdleResult = idleService.getIdle(idleCommentDO.getIdleId());
         if(!getIdleResult.isSuccess()) {
             return Result.fail(ErrorCode.INVALID_PARAMETER_NOT_FOUND,
                     "The idle of id={0} not exists.", idleCommentDO.getId());
         }
 
-        //保存闲置商品的评论
-        idleCommentDO.setCreateTime(new Date());
+        // 保存闲置商品的评论
         int count = idleCommentMapper.saveIdleComment(idleCommentDO);
-        //如果没有插入成功
+        // 如果没有插入成功
         if(count < 1) {
             return Result.fail(ErrorCode.INTERNAL_ERROR, "Insert idleComment fail.");
         }
@@ -72,19 +69,13 @@ public class IdleCommentServiceImpl implements IdleCommentService {
     public Result<PageInfo<IdleCommentDO>> listIdleComments(IdleCommentQuery query) {
         PageHelper.startPage(query.getPageNum(), query.getPageSize());
         PageInfo<IdleCommentDO> pageInfo = new PageInfo<>(idleCommentMapper.listIdleComments(query));
-        if (pageInfo.getList().size() < 1) {
-            Result.fail(ErrorCode.INVALID_PARAMETER_NOT_FOUND, "Not found.");
-        }
-
         return Result.success(pageInfo);
     }
 
     @Override
-    public Result<IdleCommentDO> increaseComments(IdleCommentDO idleCommentDO) {
-        idleCommentDO.setComments(idleCommentDO.getComments() + 1);
-
-        idleCommentMapper.increaseComments(idleCommentDO);
-        return Result.success(idleCommentDO);
+    public Result<IdleCommentDO> increaseComments(Integer id) {
+        idleCommentMapper.increaseComments(id);
+        return getIdleComment(id);
     }
 
 }

@@ -1,20 +1,16 @@
 package com.wudagezhandui.shixun.xianyu.pojo.do0;
 
-import com.wudagezhandui.shixun.xianyu.pojo.group.Group;
-import com.wudagezhandui.shixun.xianyu.validator.annotation.Id;
-
 import java.util.Date;
 
 public class IdleCommentCommentDO {
 
-    @Id(groups = {Group.class})
     private Integer id;
 
     private Integer userId;
 
     private Integer idleCommentId;
 
-    private Integer idleCommentCommentId;
+    private Integer parentIdleCommentCommentId;
 
     private String content;
 
@@ -26,11 +22,11 @@ public class IdleCommentCommentDO {
 
     }
 
-    public IdleCommentCommentDO(Integer id, Integer userId, Integer idleCommentId, Integer idleCommentCommentId, String content, Date createTime, Date updateTime) {
+    public IdleCommentCommentDO(Integer id, Integer userId, Integer idleCommentId, Integer parentIdleCommentCommentId, String content, Date createTime, Date updateTime) {
         this.id = id;
         this.userId = userId;
         this.idleCommentId = idleCommentId;
-        this.idleCommentCommentId = idleCommentCommentId;
+        this.parentIdleCommentCommentId = parentIdleCommentCommentId;
         this.content = content;
         this.createTime = createTime;
         this.updateTime = updateTime;
@@ -48,9 +44,9 @@ public class IdleCommentCommentDO {
 
     public void setIdleCommentId(Integer idleCommentId) { this.idleCommentId = idleCommentId; }
 
-    public Integer getIdleCommentCommentId() { return this.idleCommentCommentId; }
+    public Integer getParentIdleCommentCommentId() { return this.parentIdleCommentCommentId; }
 
-    public void setIdleCommentCommentId(Integer idleCommentCommentId) { this.idleCommentCommentId = idleCommentCommentId; }
+    public void setParentIdleCommentCommentId(Integer parentIdleCommentCommentId) { this.parentIdleCommentCommentId = parentIdleCommentCommentId; }
 
     public String getContent() { return this.content; }
 
@@ -70,7 +66,7 @@ public class IdleCommentCommentDO {
                 "id = " + id +
                 ", userId = '" + userId + '\'' +
                 ", idleCommentId = '" + idleCommentId + '\'' +
-                ", idleCommentCommentId = '" + idleCommentCommentId + '\'' +
+                ", parentIdleCommentCommentId = '" + parentIdleCommentCommentId + '\'' +
                 ", content = '" + content + '\'' +
                 ", createTime = " + createTime +
                 ", updateTime = " + updateTime +

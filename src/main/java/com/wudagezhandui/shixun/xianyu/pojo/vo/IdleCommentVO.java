@@ -1,7 +1,5 @@
 package com.wudagezhandui.shixun.xianyu.pojo.vo;
 
-import com.wudagezhandui.shixun.xianyu.pojo.do0.IdleCommentDO;
-
 import java.util.Date;
 
 public class IdleCommentVO {
@@ -9,6 +7,8 @@ public class IdleCommentVO {
     private Integer id;
 
     private Integer userId;
+
+    private UserVO user;
 
     private Integer idleId;
 
@@ -24,9 +24,12 @@ public class IdleCommentVO {
 
     }
 
-    public IdleCommentVO(Integer id, Integer userId, Integer idleId, String content, Integer comments, Date createTime, Date updateTime) {
+    public IdleCommentVO(Integer id, Integer userId, UserVO user, Integer idleId, String content, Integer comments,
+                         Date createTime, Date updateTime) {
+
         this.id = id;
         this.userId = userId;
+        this.user = user;
         this.idleId = idleId;
         this.content = content;
         this.comments = comments;
@@ -41,6 +44,14 @@ public class IdleCommentVO {
     public Integer getUserId() { return this.userId; }
 
     public void setUserId(Integer userId) { this.userId = userId; }
+
+    public UserVO getUser() {
+        return user;
+    }
+
+    public void setUser(UserVO user) {
+        this.user = user;
+    }
 
     public Integer getIdleId() { return this.idleId; }
 
@@ -64,15 +75,15 @@ public class IdleCommentVO {
 
     @Override
     public String toString() {
-        return "idleCommentVO{" +
-                "id = " + id +
-                ", userId = '" + userId + '\'' +
-                ", idleId = '" + idleId + '\'' +
-                ", content = '" + content + '\'' +
-                ", comments = '" + comments + '\'' +
-                ", createTime = " + createTime +
-                ", updateTime = " + updateTime +
+        return "IdleCommentVO{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", user=" + user +
+                ", idleId=" + idleId +
+                ", content='" + content + '\'' +
+                ", comments=" + comments +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
-
     }
 }

@@ -13,8 +13,6 @@ import com.wudagezhandui.shixun.xianyu.service.IdleCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-
 @Service("IdleCommentCommentService")
 public class IdleCommentCommentServiceImpl implements IdleCommentCommentService {
 
@@ -24,34 +22,36 @@ public class IdleCommentCommentServiceImpl implements IdleCommentCommentService 
     private final IdleCommentService idleCommentService;
 
     @Autowired
-    public IdleCommentCommentServiceImpl(IdleCommentCommentMapper idleCommentCommentMapper, IdleCommentService idleCommentService) {
+    public IdleCommentCommentServiceImpl(IdleCommentCommentMapper idleCommentCommentMapper,
+                                         IdleCommentService idleCommentService) {
         this.idleCommentCommentMapper = idleCommentCommentMapper;
         this.idleCommentService = idleCommentService;
     }
 
     @Override
     public Result<IdleCommentCommentDO> saveIdleCommentComment(IdleCommentCommentDO idleCommentCommentDO) {
-        //判断一级评论是否存在
+        // 判断一级评论是否存在
         Result<IdleCommentDO> getIdleCommentResult = idleCommentService.getIdleComment(idleCommentCommentDO.getIdleCommentId());
         if(!getIdleCommentResult.isSuccess()) {
             return Result.fail(ErrorCode.INVALID_PARAMETER_NOT_FOUND,
                     "The comment of id={0} not exists.", idleCommentCommentDO.getId());
         }
 
-        //保存闲置商品的评论
-        idleCommentCommentDO.setCreateTime(new Date());
+        // 保存闲置商品的评论
         int count = idleCommentCommentMapper.saveIdleCommentComment(idleCommentCommentDO);
-        //如果没有插入成功
+        // 如果没有插入成功
         if(count < 1) {
             return Result.fail(ErrorCode.INTERNAL_ERROR, "Insert idleCommentComment fail.");
         }
+
+        // 增加评论的评论数
+        idleCommentService.increaseComments(idleCommentCommentDO.getIdleCommentId());
 
         return getIdleCommentComment(idleCommentCommentDO.getId());
     }
 
     @Override
     public Result<IdleCommentCommentDO> getIdleCommentComment(Integer id) {
-
         IdleCommentCommentDO idleCommentCommentDO = idleCommentCommentMapper.getIdleCommentComment(id);
         if(idleCommentCommentDO == null) {
             return Result.fail(ErrorCode.INVALID_PARAMETER_NOT_FOUND, "The specified id does not exist.");
@@ -64,10 +64,6 @@ public class IdleCommentCommentServiceImpl implements IdleCommentCommentService 
     public Result<PageInfo<IdleCommentCommentDO>> listIdleCommentComments(IdleCommentCommentQuery query) {
         PageHelper.startPage(query.getPageNum(), query.getPageSize());
         PageInfo<IdleCommentCommentDO> pageInfo = new PageInfo<>(idleCommentCommentMapper.listIdleCommentComments(query));
-        if (pageInfo.getList().size() < 1) {
-            Result.fail(ErrorCode.INVALID_PARAMETER_NOT_FOUND, "Not found.");
-        }
-
         return Result.success(pageInfo);
     }
 }

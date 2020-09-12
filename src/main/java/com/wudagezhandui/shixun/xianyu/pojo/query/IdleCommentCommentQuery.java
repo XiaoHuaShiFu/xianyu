@@ -73,12 +73,12 @@ public class IdleCommentCommentQuery {
 
     @Override
     public String toString() {
-        return "ShareCommentQuery{" +
+        return "IdleCommentCommentQuery{" +
                 "pageNum=" + pageNum +
                 ", pageSize=" + pageSize +
                 ", id=" + id +
-                ", idList=" + idList +
                 ", userId=" + userId +
+                ", idList=" + idList +
                 ", idleCommentId=" + idleCommentId +
                 '}';
     }

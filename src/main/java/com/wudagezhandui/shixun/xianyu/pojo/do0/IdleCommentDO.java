@@ -1,13 +1,9 @@
 package com.wudagezhandui.shixun.xianyu.pojo.do0;
 
-import com.wudagezhandui.shixun.xianyu.pojo.group.Group;
-import com.wudagezhandui.shixun.xianyu.validator.annotation.Id;
-
 import java.util.Date;
 
 public class IdleCommentDO {
 
-    @Id(groups = {Group.class})
     private Integer id;
 
     private Integer userId;

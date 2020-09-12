@@ -1,6 +1,5 @@
 package com.wudagezhandui.shixun.xianyu.pojo.query;
 
-import java.util.Date;
 import java.util.List;
 
 public class IdleCommentQuery {

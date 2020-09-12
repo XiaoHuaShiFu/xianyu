@@ -7,35 +7,8 @@
 
     <insert id="saveIdleCommentComment" parameterType="com.wudagezhandui.shixun.xianyu.pojo.do0.IdleCommentCommentDO"
             useGeneratedKeys="true" keyProperty="id">
-        insert into idle_comment_comment
-        <trim prefix="(" suffix=")" suffixOverrides="," >
-            <if test="userId != null" >
-                user_id,
-            </if>
-            <if test="idleCommentId != null" >
-                idle_comment_id,
-            </if>
-            <if test="idleCommentCommentId != null" >
-                parent_idle_comment_comment_id,
-            </if>
-            <if test="content != null" >
-                content,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides="," >
-            <if test="userId != null" >
-                #{userId},
-            </if>
-            <if test="idleCommentId != null" >
-                #{idleCommentId},
-            </if>
-            <if test="idleCommentCommentId != null" >
-                #{idleCommentCommentId},
-            </if>
-            <if test="content != null" >
-                #{content},
-            </if>
-        </trim>
+        insert into idle_comment_comment(user_id, idle_comment_id, parent_idle_comment_comment_id, content)
+        values(#{userId}, #{idleCommentId}, #{parentIdleCommentCommentId}, #{content})
     </insert>
 
     <select id="getIdleCommentComment" parameterType="integer" resultType="com.wudagezhandui.shixun.xianyu.pojo.do0.IdleCommentCommentDO">

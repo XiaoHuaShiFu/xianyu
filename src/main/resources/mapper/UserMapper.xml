@@ -94,6 +94,9 @@
             <if test="avatarUrl != null">
                 avatar_url = #{avatarUrl},
             </if>
+            <if test="aliPayAccount != null">
+                ali_pay_account = #{aliPayAccount},
+            </if>
         </set>
         where id = #{id}
     </update>

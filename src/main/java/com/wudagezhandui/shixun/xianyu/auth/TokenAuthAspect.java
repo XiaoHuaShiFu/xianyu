@@ -52,7 +52,8 @@ public class TokenAuthAspect {
      * UNAUTHORIZED_TOKEN_IS_NULL
      * FORBIDDEN_SUB_USER
      */
-    @Around(value = "@annotation(com.wudagezhandui.shixun.xianyu.auth.TokenAuth) && @annotation(tokenAuth) && args(..)")
+    @Around(value = "@annotation(com.wudagezhandui.shixun.xianyu.auth.TokenAuth) " +
+            "&& @annotation(tokenAuth) && args(..)")
     public Object authToken(ProceedingJoinPoint joinPoint, TokenAuth tokenAuth) throws Throwable {
         HttpServletRequest request = ((ServletRequestAttributes)
                 Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
